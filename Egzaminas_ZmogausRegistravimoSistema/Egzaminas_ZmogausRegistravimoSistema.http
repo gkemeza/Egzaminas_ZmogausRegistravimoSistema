@@ -1,0 +1,6 @@
+@Egzaminas_ZmogausRegistravimoSistema_HostAddress = http://localhost:5062
+
+GET {{Egzaminas_ZmogausRegistravimoSistema_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
