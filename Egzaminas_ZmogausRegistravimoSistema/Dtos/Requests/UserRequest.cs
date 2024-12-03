@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Egzaminas_ZmogausRegistravimoSistema.Validators;
+using System.ComponentModel.DataAnnotations;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
 {
@@ -9,5 +10,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
         public string? Username { get; set; }
         [PasswordValidator]
         public string? Password { get; set; }
+        /// <summary>
+        /// Role of the account
+        /// </summary>
+        [RoleValidator]
+        public string? Role { get; set; }
     }
 }

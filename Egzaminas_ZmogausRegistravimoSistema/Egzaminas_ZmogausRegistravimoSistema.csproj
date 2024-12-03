@@ -19,7 +19,6 @@
 		<Folder Include="Dtos\Results\" />
 		<Folder Include="Models\" />
 		<Folder Include="Mappers\" />
-		<Folder Include="Validators\" />
 	</ItemGroup>
 
 </Project>
