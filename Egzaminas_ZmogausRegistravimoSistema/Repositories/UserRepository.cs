@@ -7,6 +7,8 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
     public interface IUserRepository
     {
         Guid CreateUser(UserInfo user);
+        void DeleteUser(Guid id);
+        UserInfo? GetUserByUsername(string username);
     }
 
     public class UserRepository : IUserRepository
@@ -31,6 +33,21 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
             return user.Id;
         }
 
+        public UserInfo? GetUserByUsername(string username)
+        {
+            ArgumentNullException.ThrowIfNull(username);
 
+            return _context.UserInfos.FirstOrDefault(u => u.Username == username);
+        }
+
+        public void DeleteUser(Guid id)
+        {
+            var user = _context.UserInfos.Find(id);
+            if (user != null)
+            {
+                _context.UserInfos.Remove(user);
+                _context.SaveChanges();
+            }
+        }
     }
 }
