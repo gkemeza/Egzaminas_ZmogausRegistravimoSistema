@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Services
 {
-
     public class AuthService : IAuthService
     {
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

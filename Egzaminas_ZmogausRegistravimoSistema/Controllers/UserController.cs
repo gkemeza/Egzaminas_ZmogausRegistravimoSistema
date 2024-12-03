@@ -7,6 +7,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        /// <summary>
+        /// Create a user account
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("SignUp")]
         public IActionResult SignUp()
         {

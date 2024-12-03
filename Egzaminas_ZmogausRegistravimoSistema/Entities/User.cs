@@ -2,7 +2,7 @@
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Entities
 {
-    public class UserInfo
+    public class User
     {
         [Key]
         public Guid Id { get; set; }

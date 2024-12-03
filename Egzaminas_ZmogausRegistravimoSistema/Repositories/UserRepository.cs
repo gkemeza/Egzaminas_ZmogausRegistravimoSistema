@@ -13,7 +13,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
             _context = context;
         }
 
-        public Guid CreateUser(UserInfo user)
+        public Guid CreateUser(User user)
         {
             ArgumentNullException.ThrowIfNull(user);
 
@@ -26,7 +26,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
             return user.Id;
         }
 
-        public UserInfo? GetUserByUsername(string username)
+        public User? GetUserByUsername(string username)
         {
             ArgumentNullException.ThrowIfNull(username);
 

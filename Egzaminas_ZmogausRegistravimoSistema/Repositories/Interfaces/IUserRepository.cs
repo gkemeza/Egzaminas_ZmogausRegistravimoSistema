@@ -4,8 +4,8 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Guid CreateUser(UserInfo user);
+        Guid CreateUser(User user);
         void DeleteUser(Guid id);
-        UserInfo? GetUserByUsername(string username);
+        User? GetUserByUsername(string username);
     }
 }
