@@ -5,20 +5,14 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Entities
     public class PersonInfo
     {
         [Key]
-        public int Id { get; set; }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
-        [Required]
-        public int IDNumber { get; set; }
-        [Required]
+        public long Id { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public int PersonalId { get; set; }
         public int PhoneNumber { get; set; }
-        [Required]
-        public string Email { get; set; }
-        [Required]
-        public IFormFile ProfilePhoto { get; set; }
-        [Required]
-        public Residence Residence { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string PhotoPath { get; set; } = string.Empty;
+        //public IFormFile ProfilePhoto { get; set; }
+        public Residence Residence { get; set; } = null!;
     }
 }
