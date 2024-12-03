@@ -19,6 +19,7 @@
 		<Folder Include="Models\" />
 		<Folder Include="Dtos\" />
 		<Folder Include="Mappers\" />
+		<Folder Include="Services\Interfaces\" />
 		<Folder Include="Validators\" />
 	</ItemGroup>
 

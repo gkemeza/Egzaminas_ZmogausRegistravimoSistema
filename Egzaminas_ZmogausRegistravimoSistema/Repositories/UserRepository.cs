@@ -1,16 +1,9 @@
 ﻿using Egzaminas_ZmogausRegistravimoSistema.Database;
 using Egzaminas_ZmogausRegistravimoSistema.Entities;
+using Egzaminas_ZmogausRegistravimoSistema.Repositories.Interfaces;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
 {
-
-    public interface IUserRepository
-    {
-        Guid CreateUser(UserInfo user);
-        void DeleteUser(Guid id);
-        UserInfo? GetUserByUsername(string username);
-    }
-
     public class UserRepository : IUserRepository
     {
         private readonly PersonRegistrationContext _context;
