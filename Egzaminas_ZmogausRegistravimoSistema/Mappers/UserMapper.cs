@@ -20,7 +20,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Mappers
             return new User
             {
                 Username = dto.Username!,
-                Password = dto.Password!,
+                PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
             };
         }

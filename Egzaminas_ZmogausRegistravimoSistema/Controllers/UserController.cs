@@ -42,5 +42,39 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _logger.LogInformation($"Account for '{req.Username}' created with id '{userId}'");
             return Created("", new { id = userId });
         }
+
+        /// <summary>
+        /// User login
+        /// </summary>
+        /// <param name="req">User request</param>
+        /// <response code="400">Model validation error</response>
+        /// <response code= "500">System error</response>
+        [HttpPost("Login")]
+        [Produces(MediaTypeNames.Text.Plain)]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Login(UserRequest req)
+        {
+            _logger.LogInformation($"Login attempt for '{req.Username}'");
+
+            var user = _userRepository.GetUserByUsername(req.Username!);
+            if (user == null)
+            {
+                _logger.LogWarning($"User '{req.Username}' not found");
+                return BadRequest("User not found");
+            }
+
+            var isPasswordValid = _authService.VerifyPasswordHash(req.Password, user.PasswordHash, user.PasswordSalt);
+            if (!isPasswordValid)
+            {
+                _logger.LogWarning($"Invalid password for '{req.Username}'");
+                return BadRequest("Invalid username or password");
+            }
+
+            _logger.LogInformation($"User '{req.Username}' succesfully logged in");
+            //add jwt
+            return Ok();
+        }
     }
 }

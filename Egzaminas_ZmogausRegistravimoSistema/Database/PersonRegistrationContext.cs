@@ -22,7 +22,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            // TODO?
         }
     }
 }
