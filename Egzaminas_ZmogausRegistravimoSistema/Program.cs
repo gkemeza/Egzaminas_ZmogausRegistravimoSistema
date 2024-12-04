@@ -45,7 +45,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema
             app.UseCors(builder =>
             {
                 builder
-                //.WithOrigins("https://example1.com")
+                //.WithOrigins("https://localhost:7066")
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader();
