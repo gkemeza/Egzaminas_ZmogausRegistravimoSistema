@@ -17,6 +17,8 @@ namespace Egzaminas_ZmogausRegistravimoSistema
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddCors();
+
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IAuthService, AuthService>();
             builder.Services.AddTransient<IUserMapper, UserMapper>();
@@ -39,6 +41,15 @@ namespace Egzaminas_ZmogausRegistravimoSistema
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(builder =>
+            {
+                builder
+                //.WithOrigins("https://example1.com")
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
 
             app.UseAuthorization();
 
