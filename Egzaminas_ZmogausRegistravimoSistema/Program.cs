@@ -1,5 +1,11 @@
 
 using Egzaminas_ZmogausRegistravimoSistema.Database;
+using Egzaminas_ZmogausRegistravimoSistema.Mappers;
+using Egzaminas_ZmogausRegistravimoSistema.Mappers.Interfaces;
+using Egzaminas_ZmogausRegistravimoSistema.Repositories;
+using Egzaminas_ZmogausRegistravimoSistema.Repositories.Interfaces;
+using Egzaminas_ZmogausRegistravimoSistema.Services;
+using Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Egzaminas_ZmogausRegistravimoSistema
@@ -11,6 +17,9 @@ namespace Egzaminas_ZmogausRegistravimoSistema
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<IAuthService, AuthService>();
+            builder.Services.AddTransient<IUserMapper, UserMapper>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

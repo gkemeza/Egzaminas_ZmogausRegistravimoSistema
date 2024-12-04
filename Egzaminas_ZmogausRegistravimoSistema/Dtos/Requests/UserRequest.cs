@@ -17,11 +17,5 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
         /// </summary>
         [PasswordValidator]
         public string? Password { get; set; }
-
-        /// <summary>
-        /// Role of the account
-        /// </summary>
-        [RoleValidator]
-        public string? Role { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Egzaminas_ZmogausRegistravimoSistema.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Egzaminas_ZmogausRegistravimoSistema.Migrations
 {
     [DbContext(typeof(PersonRegistrationContext))]
-    partial class PersonRegistrationContextModelSnapshot : ModelSnapshot
+    [Migration("20241204143925_MakePersonInfoOptional")]
+    partial class MakePersonInfoOptional
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

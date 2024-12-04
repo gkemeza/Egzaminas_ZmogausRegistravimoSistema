@@ -22,7 +22,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Mappers
                 Username = dto.Username!,
                 Password = dto.Password!,
                 PasswordSalt = passwordSalt,
-                Role = dto.Role!
             };
         }
     }
