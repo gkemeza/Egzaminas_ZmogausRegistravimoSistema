@@ -5,7 +5,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Database
 {
     public class PersonRegistrationContext : DbContext
     {
-        public DbSet<User> UserInfos { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<PersonInfo> PersonInfos { get; set; }
         public DbSet<Residence> Residences { get; set; }
 
