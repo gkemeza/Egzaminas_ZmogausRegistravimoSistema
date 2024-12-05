@@ -92,6 +92,15 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Delete(Guid id)
         {
+            _logger.LogInformation($"Deleting account '{id}'");
+            if (!_userRepository.UserExists(id))
+            {
+                _logger.LogInformation($"Account '{id}' not found");
+                return NotFound();
+            }
+
+            _userRepository.DeleteUser(id);
+            return NoContent();
         }
     }
 }

@@ -33,6 +33,16 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
             return _context.UserInfos.FirstOrDefault(u => u.Username == username);
         }
 
+        public User? GetUserById(Guid id)
+        {
+            return _context.UserInfos.FirstOrDefault(u => u.Id == id);
+        }
+
+        public bool UserExists(Guid id)
+        {
+            return _context.UserInfos.Any(u => u.Id == id);
+        }
+
         public void DeleteUser(Guid id)
         {
             var user = _context.UserInfos.Find(id);
