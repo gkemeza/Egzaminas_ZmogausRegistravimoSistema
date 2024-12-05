@@ -1,7 +1,9 @@
 ﻿using Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests;
 using Egzaminas_ZmogausRegistravimoSistema.Mappers.Interfaces;
 using Egzaminas_ZmogausRegistravimoSistema.Repositories.Interfaces;
+using Egzaminas_ZmogausRegistravimoSistema.Services;
 using Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
@@ -15,14 +17,16 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         private readonly IAuthService _authService;
         private readonly IUserMapper _userMapper;
         private readonly IUserRepository _userRepository;
+        private readonly IJwtService _jwtService;
 
         public UserController(ILogger<UserController> logger, IAuthService authService,
-            IUserMapper userMapper, IUserRepository userRepository)
+            IUserMapper userMapper, IUserRepository userRepository, IJwtService jwtService)
         {
             _logger = logger;
             _authService = authService;
             _userMapper = userMapper;
             _userRepository = userRepository;
+            _jwtService = jwtService;
         }
 
         /// <summary>
@@ -73,8 +77,21 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             }
 
             _logger.LogInformation($"User '{req.Username}' succesfully logged in");
-            //add jwt
-            return Ok();
+            var jwt = _jwtService.GetJwtToken(user);
+            return Ok(new { Token = jwt });
+        }
+
+        /// <summary>
+        /// Remove a user. Only for admin.
+        /// </summary>
+        /// <param name="id">User id</param>
+        /// <returns></returns>
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Delete(Guid id)
+        {
         }
     }
 }

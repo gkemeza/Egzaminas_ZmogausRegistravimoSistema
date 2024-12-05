@@ -19,6 +19,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema
             // Add services to the container.
             builder.Services.AddCors();
 
+            // TODO: add ConfigureServices() method
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IAuthService, AuthService>();
             builder.Services.AddTransient<IUserMapper, UserMapper>();
