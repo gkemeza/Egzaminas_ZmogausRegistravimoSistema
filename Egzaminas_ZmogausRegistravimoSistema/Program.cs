@@ -23,6 +23,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IAuthService, AuthService>();
             builder.Services.AddTransient<IUserMapper, UserMapper>();
+            builder.Services.AddTransient<IJwtService, JwtService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

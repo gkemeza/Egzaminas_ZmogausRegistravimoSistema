@@ -54,7 +54,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         /// <response code="400">Model validation error</response>
         /// <response code= "500">System error</response>
         [HttpPost("Login")]
-        [Produces(MediaTypeNames.Text.Plain)]
+        [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -86,8 +86,9 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         /// </summary>
         /// <param name="id">User id</param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("{id:guid}")]
+        [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Delete(Guid id)
