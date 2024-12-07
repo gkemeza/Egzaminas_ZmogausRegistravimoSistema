@@ -86,7 +86,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         /// </summary>
         /// <param name="id">User id</param>
         /// <returns></returns>
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:guid}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

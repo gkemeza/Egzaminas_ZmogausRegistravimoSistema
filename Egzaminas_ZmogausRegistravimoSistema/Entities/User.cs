@@ -12,7 +12,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Entities
         // acknowledgment to developers and the compiler that the property is non-nullable but defers initialization to a later stage.
         public byte[] PasswordHash { get; set; } = null!;
         public byte[] PasswordSalt { get; set; } = null!;
-        public string Role { get; set; } = "user";
+        public string Role { get; set; } = "User";
         public PersonInfo? PersonInfo { get; set; } = null!;
     }
 }
