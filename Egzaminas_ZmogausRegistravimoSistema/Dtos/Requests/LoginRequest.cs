@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
 {
-    public class UserRequest
+    public class LoginRequest
     {
         /// <summary>
         /// Username of the account
@@ -18,8 +18,5 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
         /// </summary>
         [PasswordValidator]
         public string? Password { get; set; }
-
-        [Required]
-        public PersonInfo PersonInfo { get; set; }
     }
 }

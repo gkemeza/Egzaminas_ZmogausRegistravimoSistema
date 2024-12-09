@@ -58,7 +58,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Login([FromBody] UserRequest req)
+        public IActionResult Login([FromBody] LoginRequest req)
         {
             _logger.LogInformation($"Login attempt for '{req.Username}'");
 
