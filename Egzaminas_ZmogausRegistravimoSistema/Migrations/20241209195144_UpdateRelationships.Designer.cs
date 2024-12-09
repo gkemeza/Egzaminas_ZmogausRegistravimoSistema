@@ -4,6 +4,7 @@ using Egzaminas_ZmogausRegistravimoSistema.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Egzaminas_ZmogausRegistravimoSistema.Migrations
 {
     [DbContext(typeof(PersonRegistrationContext))]
-    partial class PersonRegistrationContextModelSnapshot : ModelSnapshot
+    [Migration("20241209195144_UpdateRelationships")]
+    partial class UpdateRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,12 +119,9 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Username")
-                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -150,14 +150,12 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Migrations
 
             modelBuilder.Entity("Egzaminas_ZmogausRegistravimoSistema.Entities.PersonInfo", b =>
                 {
-                    b.Navigation("Residence")
-                        .IsRequired();
+                    b.Navigation("Residence");
                 });
 
             modelBuilder.Entity("Egzaminas_ZmogausRegistravimoSistema.Entities.User", b =>
                 {
-                    b.Navigation("PersonInfo")
-                        .IsRequired();
+                    b.Navigation("PersonInfo");
                 });
 #pragma warning restore 612, 618
         }

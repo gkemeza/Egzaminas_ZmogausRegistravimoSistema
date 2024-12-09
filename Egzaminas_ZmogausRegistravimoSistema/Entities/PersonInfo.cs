@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Entities
 {
@@ -12,7 +13,11 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Entities
         public int PhoneNumber { get; set; }
         public string Email { get; set; } = string.Empty;
         public string PhotoPath { get; set; } = string.Empty;
-        //public IFormFile ProfilePhoto { get; set; }
+
+        [ForeignKey(nameof(User))]
+        public Guid UserId { get; set; }
+        public User User { get; set; } = null!;
+
         public Residence Residence { get; set; } = null!;
     }
 }
