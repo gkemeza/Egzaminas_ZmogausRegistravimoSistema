@@ -30,8 +30,6 @@ const onLogin = async () => {
     const token = content.token;
     console.log("Login response token: ", token);
 
-    // TODO: later redo jwt storing to use 'Double Submit Cookies Method'(cookies)
-    // store jwt in local storage
     localStorage.setItem("JWT", token);
 
     window.location.href = "../main-page/main.html"; // go to main page
