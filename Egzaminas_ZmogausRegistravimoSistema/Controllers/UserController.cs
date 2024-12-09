@@ -38,7 +38,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public IActionResult SignUp(UserRequest req)
+        public IActionResult SignUp([FromBody] UserRequest req)
         {
             _logger.LogInformation($"Creating account for '{req.Username}'");
             var user = _userMapper.Map(req);
@@ -58,7 +58,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Login(UserRequest req)
+        public IActionResult Login([FromBody] UserRequest req)
         {
             _logger.LogInformation($"Login attempt for '{req.Username}'");
 
@@ -91,7 +91,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete([FromRoute] Guid id)
         {
             _logger.LogInformation($"Deleting account '{id}'");
             if (!_userRepository.UserExists(id))
