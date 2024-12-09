@@ -22,7 +22,21 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // TODO?
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.PersonInfo)
+                .WithOne(p => p.User)
+                .HasForeignKey<PersonInfo>(p => p.UserId)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+
+            modelBuilder.Entity<PersonInfo>()
+                .HasOne(u => u.Residence)
+                .WithOne(p => p.PersonInfo)
+                .HasForeignKey<Residence>(p => p.PersonInfoId)
+                .IsRequired();
         }
     }
 }
