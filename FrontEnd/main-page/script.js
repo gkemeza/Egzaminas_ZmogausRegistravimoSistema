@@ -164,6 +164,52 @@ const onUpdatePassword = async () => {
   }
 };
 
+const onUpdateName = async () => {
+  const firstName = document.querySelector("#update-firstName").value;
+  const lastName = document.querySelector("#update-lastName").value;
+
+  if (!firstName && !lastName) {
+    // TODO: display error
+    console.error("Both fields are empty. Provide at least one name.");
+    return;
+  }
+
+  // TODO: add validations
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const data = {
+    NewFirstName: firstName || null,
+    NewLastName: lastName || null,
+  };
+
+  try {
+    const url = `https://localhost:7066/api/Profile/UpdateName`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    console.log(JSON.stringify(data));
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    console.log("Name update request processed successfully.");
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
 const parseJwt = (token) => {
   if (!token) {
     return;
