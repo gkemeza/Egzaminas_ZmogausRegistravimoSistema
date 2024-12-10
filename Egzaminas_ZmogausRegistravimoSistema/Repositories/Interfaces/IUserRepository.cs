@@ -8,6 +8,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories.Interfaces
         void DeleteUser(Guid id);
         User? GetUserById(Guid id);
         User? GetUserByUsername(string username);
+        void UpdateUser(User user);
         bool UserExists(Guid id);
     }
 }

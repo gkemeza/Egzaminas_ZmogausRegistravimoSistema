@@ -93,14 +93,41 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Delete([FromRoute] Guid id)
         {
-            _logger.LogInformation($"Deleting account '{id}'");
+            _logger.LogInformation($"Deleting account with ID: '{id}'");
             if (!_userRepository.UserExists(id))
             {
-                _logger.LogInformation($"Account '{id}' not found");
+                _logger.LogInformation($"Account not found with ID: '{id}'");
                 return NotFound();
             }
 
             _userRepository.DeleteUser(id);
+            return NoContent();
+        }
+
+        [HttpPut("UpdateUsername")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public IActionResult UpdateUsername([FromBody] UpdateUsernameRequest req)
+        {
+            _logger.LogInformation($"Updating username for user ID: {req.UserId}");
+
+            var user = _userRepository.GetUserById(req.UserId);
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found with ID: '{req.UserId}'");
+                return BadRequest("User not found");
+            }
+            if (user.Id != req.UserId)
+            {
+                _logger.LogWarning($"User forbidden with ID: '{req.UserId}'");
+                return Forbid();
+            }
+
+            user.Username = req.NewUsername;
+            _userRepository.UpdateUser(user);
             return NoContent();
         }
     }

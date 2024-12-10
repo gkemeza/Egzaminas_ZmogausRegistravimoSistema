@@ -49,6 +49,12 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
             return _context.Users.Any(u => u.Id == id);
         }
 
+        public void UpdateUser(User user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
+        }
+
         public void DeleteUser(Guid id)
         {
             var user = _context.Users.Find(id);
