@@ -49,7 +49,7 @@ const onDelete = async () => {
     return;
   }
 
-  const token = localStorage.getItem("JWT"); // Retrieve JWT from storage
+  const token = localStorage.getItem("JWT");
   if (!token) {
     console.error("No token found. User is not authenticated.");
     return;
@@ -76,13 +76,55 @@ const onDelete = async () => {
   }
 };
 
+const onUpdateUsername = async () => {
+  const newUsername = document.querySelector("#update-username").value;
+
+  if (!newUsername) {
+    // TODO: display error
+    console.error("Username is required");
+    return;
+  }
+
+  // TODO: add validations
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const data = {
+    newUsername,
+  };
+
+  try {
+    const url = `https://localhost:7066/api/Profile/UpdateUsername`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    console.log("Username updated successfully.");
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
 const parseJwt = (token) => {
   if (!token) {
     return;
   }
 
   const base64Url = token.split(".")[1];
-
   const base64 = base64Url.replace("-", "+").replace("_", "/");
 
   return JSON.parse(window.atob(base64));

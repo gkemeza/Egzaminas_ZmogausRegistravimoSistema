@@ -29,6 +29,8 @@ namespace Egzaminas_ZmogausRegistravimoSistema
             builder.Services.AddTransient<IUserMapper, UserMapper>();
             builder.Services.AddTransient<IJwtService, JwtService>();
 
+            builder.Services.AddHttpContextAccessor();
+
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
