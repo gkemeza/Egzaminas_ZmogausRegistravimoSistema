@@ -1,6 +1,7 @@
 ﻿using Egzaminas_ZmogausRegistravimoSistema.Database;
 using Egzaminas_ZmogausRegistravimoSistema.Entities;
 using Egzaminas_ZmogausRegistravimoSistema.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
 {
@@ -22,6 +23,8 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
                 throw new ArgumentException("Username already exists");
 
             _context.Users.Add(user);
+            _context.PersonInfos.Add(user.PersonInfo);
+            _context.Residences.Add(user.PersonInfo.Residence);
             _context.SaveChanges();
             return user.Id;
         }
@@ -30,7 +33,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
         {
             ArgumentNullException.ThrowIfNull(username);
 
-            return _context.Users.FirstOrDefault(u => u.Username == username);
+            return _context.Users
+                .Include(u => u.PersonInfo)
+                .ThenInclude(pf => pf.Residence)
+                .FirstOrDefault(u => u.Username == username);
         }
 
         public User? GetUserById(Guid id)
