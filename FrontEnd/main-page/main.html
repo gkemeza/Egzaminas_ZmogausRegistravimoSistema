@@ -13,7 +13,6 @@
   <body>
     <h1>Hello user!</h1>
     <br />
-    <br />
 
     <div id="endpoints-container">
       <h2>Update username</h2>
@@ -28,6 +27,29 @@
       <br />
       <br />
       <button onclick="onUpdateUsername()">Update</button>
+      <br />
+      <br />
+      <h2>Update password</h2>
+      <input
+        type="password"
+        name="update-password-old"
+        id="update-password-old"
+        placeholder="old password"
+        autocomplete="off"
+        required
+      />
+      <br />
+      <input
+        type="password"
+        name="update-password-new"
+        id="update-password-new"
+        placeholder="new password"
+        autocomplete="off"
+        required
+      />
+      <br />
+      <br />
+      <button onclick="onUpdatePassword()">Update</button>
     </div>
 
     <script src="script.js"></script>
