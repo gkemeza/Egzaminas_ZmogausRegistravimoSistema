@@ -76,8 +76,8 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
                 return BadRequest("Invalid username or password");
             }
 
-            _logger.LogInformation($"User '{req.Username}' succesfully logged in");
             var jwt = _jwtService.GetJwtToken(user);
+            _logger.LogInformation($"User '{req.Username}' succesfully logged in");
             return Ok(new { Token = jwt });
         }
 
