@@ -34,7 +34,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult UpdateUsername([FromBody] UpdateUsernameRequest req)
         {
@@ -83,6 +82,54 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _userRepository.UpdateUser(user);
 
             _logger.LogInformation($"Successfully updated password for user ID: {_userId}");
+            return NoContent();
+        }
+
+        [HttpPut("UpdateName")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateName([FromBody] UpdateNameRequest req)
+        {
+            _logger.LogInformation($"Received request to update name for user ID: {_userId}");
+
+            var user = _userRepository.GetUserById(_userId);
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found with ID: '{_userId}'");
+                return NotFound("User not found");
+            }
+
+            if (req.NewFirstName == null && req.NewLastName == null)
+            {
+                _logger.LogInformation($"No updates were provided for user ID: {_userId}");
+                return BadRequest("No updates were provided");
+            }
+            if (req.NewFirstName != null && string.IsNullOrWhiteSpace(req.NewFirstName))
+            {
+                _logger.LogWarning("Invalid empty First Name");
+                return BadRequest("First name cannot be empty");
+            }
+            if (req.NewLastName != null && string.IsNullOrWhiteSpace(req.NewLastName))
+            {
+                _logger.LogWarning("Invalid empty Last Name");
+                return BadRequest("Last name cannot be empty");
+            }
+
+            if (!string.IsNullOrWhiteSpace(req.NewFirstName))
+            {
+                user.PersonInfo.FirstName = req.NewFirstName.Trim();
+            }
+            if (!string.IsNullOrWhiteSpace(req.NewLastName))
+            {
+                user.PersonInfo.LastName = req.NewLastName.Trim();
+            }
+
+            _userRepository.UpdateUser(user);
+
+            _logger.LogInformation($"Successfully updated name for user ID: {_userId}");
             return NoContent();
         }
     }

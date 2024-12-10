@@ -41,7 +41,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
 
         public User? GetUserById(Guid id)
         {
-            return _context.Users.FirstOrDefault(u => u.Id == id);
+            return _context.Users
+                .Include(u => u.PersonInfo)
+                .ThenInclude(pf => pf.Residence)
+                .FirstOrDefault(u => u.Id == id);
         }
 
         public bool UserExists(Guid id)
