@@ -19,9 +19,25 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Mappers
             _authService.CreatePasswordHash(dto.Password!, out var passwordHash, out var passwordSalt);
             return new User
             {
-                Username = dto.Username!,
+                Username = dto.Username,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
+                PersonInfo = new PersonInfo
+                {
+                    FirstName = dto.PersonInfo.FirstName,
+                    LastName = dto.PersonInfo.LastName,
+                    PersonalId = dto.PersonInfo.PersonalId,
+                    PhoneNumber = dto.PersonInfo.PhoneNumber,
+                    Email = dto.PersonInfo.Email,
+                    PhotoPath = dto.PersonInfo.PhotoPath,
+                    Residence = new Residence
+                    {
+                        City = dto.PersonInfo.Residence.City,
+                        Street = dto.PersonInfo.Residence.Street,
+                        HouseNumber = dto.PersonInfo.Residence.HouseNumber,
+                        RoomNumber = dto.PersonInfo.Residence.RoomNumber
+                    }
+                }
             };
         }
     }

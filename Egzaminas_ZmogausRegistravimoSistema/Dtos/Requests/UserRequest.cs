@@ -11,15 +11,15 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
         /// </summary>
         [Required]
         [StringLength(50, MinimumLength = 3)]
-        public string? Username { get; set; }
+        public string Username { get; set; } = null!;
 
         /// <summary>
         /// Password of the account
         /// </summary>
         [PasswordValidator]
-        public string? Password { get; set; }
+        public string Password { get; set; } = null!;
 
         [Required]
-        public PersonInfo PersonInfo { get; set; }
+        public PersonInfoRequest PersonInfo { get; set; } = null!;
     }
 }
