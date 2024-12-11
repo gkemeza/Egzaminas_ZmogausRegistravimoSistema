@@ -253,6 +253,49 @@ const onUpdatePersonalId = async () => {
   }
 };
 
+const onUpdatePhoneNumber = async () => {
+  const newPhoneNumber = document.querySelector("#update-phoneNumber").value;
+
+  if (!newPhoneNumber) {
+    // TODO: display error
+    console.error("Phone number is required");
+    return;
+  }
+
+  // TODO: add validations
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const data = {
+    newPhoneNumber,
+  };
+
+  try {
+    const url = `https://localhost:7066/api/Profile/UpdatePhoneNumber`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    console.log("Phone number updated successfully.");
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
 const parseJwt = (token) => {
   if (!token) {
     return;
