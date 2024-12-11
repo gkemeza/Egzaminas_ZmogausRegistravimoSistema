@@ -132,5 +132,28 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _logger.LogInformation($"Successfully updated name for user ID: {_userId}");
             return NoContent();
         }
+
+        [HttpPut("UpdatePersonalId")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdatePersonalId([FromBody] UpdatePersonalIdRequest req)
+        {
+            _logger.LogInformation($"Updating personal id for user ID: {_userId}");
+
+            var user = _userRepository.GetUserById(_userId);
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found with ID: '{_userId}'");
+                return NotFound("User not found");
+            }
+
+            user.PersonInfo.PersonalId = req.NewPersonalId;
+            _userRepository.UpdateUser(user);
+
+            _logger.LogInformation($"Successfully updated personal id for user ID: {_userId}");
+            return NoContent();
+        }
     }
 }
