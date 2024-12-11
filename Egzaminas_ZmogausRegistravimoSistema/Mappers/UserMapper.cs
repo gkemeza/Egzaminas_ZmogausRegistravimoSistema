@@ -29,7 +29,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Mappers
                     PersonalId = dto.PersonInfo.PersonalId,
                     PhoneNumber = dto.PersonInfo.PhoneNumber,
                     Email = dto.PersonInfo.Email,
-                    PhotoPath = dto.PersonInfo.PhotoPath,
                     Residence = new Residence
                     {
                         City = dto.PersonInfo.Residence.City,

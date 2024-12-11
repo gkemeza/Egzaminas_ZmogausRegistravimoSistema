@@ -1,7 +1,6 @@
 ﻿using Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests;
 using Egzaminas_ZmogausRegistravimoSistema.Mappers.Interfaces;
 using Egzaminas_ZmogausRegistravimoSistema.Repositories.Interfaces;
-using Egzaminas_ZmogausRegistravimoSistema.Services;
 using Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,15 +17,18 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         private readonly IUserMapper _userMapper;
         private readonly IUserRepository _userRepository;
         private readonly IJwtService _jwtService;
+        private readonly IPhotoService _photoService;
 
         public UserController(ILogger<UserController> logger, IAuthService authService,
-            IUserMapper userMapper, IUserRepository userRepository, IJwtService jwtService)
+            IUserMapper userMapper, IUserRepository userRepository, IJwtService jwtService,
+            IPhotoService photoService)
         {
             _logger = logger;
             _authService = authService;
             _userMapper = userMapper;
             _userRepository = userRepository;
             _jwtService = jwtService;
+            _photoService = photoService;
         }
 
         /// <summary>
@@ -38,10 +40,14 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public IActionResult SignUp([FromBody] SignUpRequest req)
+        public IActionResult SignUp([FromBody] SignUpRequest req, IFormFile photo)
         {
             _logger.LogInformation($"Creating account for '{req.Username}'");
             var user = _userMapper.Map(req);
+            if (photo != null)
+            {
+                user.PersonInfo.PhotoPath = _photoService.GetPhotoPath(photo, "Uploads/Profile-pictures");
+            }
             var userId = _userRepository.CreateUser(user);
             _logger.LogInformation($"Account for '{req.Username}' created with id '{userId}'");
             return Created("", new { id = userId });
