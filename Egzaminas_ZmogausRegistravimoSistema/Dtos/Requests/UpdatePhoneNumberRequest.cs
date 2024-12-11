@@ -2,9 +2,9 @@
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
 {
-    public class UpdatePersonalIdRequest
+    public class UpdatePhoneNumberRequest
     {
         [Required]
-        public long NewPersonalId { get; set; }
+        public string NewPhoneNumber { get; set; } = null!;
     }
 }
