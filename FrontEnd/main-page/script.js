@@ -339,6 +339,178 @@ const onUpdateEmail = async () => {
   }
 };
 
+const onUpdateCity = async () => {
+  const newCity = document.querySelector("#update-city").value;
+
+  if (!newCity) {
+    // TODO: display error
+    console.error("City is required");
+    return;
+  }
+
+  // TODO: add validations
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const data = {
+    newCity,
+  };
+
+  try {
+    const url = `https://localhost:7066/api/Profile/UpdateCity`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    console.log("City updated successfully.");
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
+const onUpdateStreet = async () => {
+  const newStreet = document.querySelector("#update-street").value;
+
+  if (!newStreet) {
+    // TODO: display error
+    console.error("Street is required");
+    return;
+  }
+
+  // TODO: add validations
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const data = {
+    newStreet,
+  };
+
+  try {
+    const url = `https://localhost:7066/api/Profile/UpdateStreet`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    console.log("Street updated successfully.");
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
+const onUpdateHouseNumber = async () => {
+  const newHouseNumber = document.querySelector("#update-houseNumber").value;
+
+  if (!newHouseNumber) {
+    // TODO: display error
+    console.error("House number is required");
+    return;
+  }
+
+  // TODO: add validations
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const data = {
+    newHouseNumber,
+  };
+
+  try {
+    const url = `https://localhost:7066/api/Profile/UpdateHouseNumber`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    console.log("House number updated successfully.");
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
+const onUpdateRoomNumber = async () => {
+  const newRoomNumber = document.querySelector("#update-roomNumber").value;
+
+  if (!newRoomNumber) {
+    // TODO: display error
+    console.error("Room number is required");
+    return;
+  }
+
+  // TODO: add validations
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const data = {
+    newRoomNumber,
+  };
+
+  try {
+    const url = `https://localhost:7066/api/Profile/UpdateRoomNumber`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    console.log("Room number updated successfully.");
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
 const parseJwt = (token) => {
   if (!token) {
     return;
