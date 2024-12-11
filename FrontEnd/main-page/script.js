@@ -296,6 +296,49 @@ const onUpdatePhoneNumber = async () => {
   }
 };
 
+const onUpdateEmail = async () => {
+  const newEmail = document.querySelector("#update-email").value;
+
+  if (!newEmail) {
+    // TODO: display error
+    console.error("Email is required");
+    return;
+  }
+
+  // TODO: add validations
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const data = {
+    newEmail,
+  };
+
+  try {
+    const url = `https://localhost:7066/api/Profile/UpdateEmail`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    console.log("Email updated successfully.");
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
 const parseJwt = (token) => {
   if (!token) {
     return;
