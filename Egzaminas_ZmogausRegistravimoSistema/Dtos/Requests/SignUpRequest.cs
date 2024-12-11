@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
 {
-    public class UserRequest
+    public class SignUpRequest
     {
         /// <summary>
         /// Username of the account

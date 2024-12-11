@@ -5,6 +5,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Mappers.Interfaces
 {
     public interface IUserMapper
     {
-        User Map(UserRequest dto);
+        User Map(SignUpRequest dto);
     }
 }

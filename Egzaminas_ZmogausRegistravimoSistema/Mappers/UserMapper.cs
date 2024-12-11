@@ -14,7 +14,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Mappers
             _authService = authService;
         }
 
-        public User Map(UserRequest dto)
+        public User Map(SignUpRequest dto)
         {
             _authService.CreatePasswordHash(dto.Password!, out var passwordHash, out var passwordSalt);
             return new User

@@ -38,7 +38,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public IActionResult SignUp([FromBody] UserRequest req)
+        public IActionResult SignUp([FromBody] SignUpRequest req)
         {
             _logger.LogInformation($"Creating account for '{req.Username}'");
             var user = _userMapper.Map(req);
