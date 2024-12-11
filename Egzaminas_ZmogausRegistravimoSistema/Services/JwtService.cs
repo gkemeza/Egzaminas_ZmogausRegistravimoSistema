@@ -1,15 +1,11 @@
 ﻿using Egzaminas_ZmogausRegistravimoSistema.Entities;
+using Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Services
 {
-    public interface IJwtService
-    {
-        string GetJwtToken(User user);
-    }
-
     public class JwtService : IJwtService
     {
         private readonly string _secretKey;
