@@ -210,6 +210,49 @@ const onUpdateName = async () => {
   }
 };
 
+const onUpdatePersonalId = async () => {
+  const newPersonalId = document.querySelector("#update-personalId").value;
+
+  if (!newPersonalId) {
+    // TODO: display error
+    console.error("Personal id is required");
+    return;
+  }
+
+  // TODO: add validations
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const data = {
+    newPersonalId,
+  };
+
+  try {
+    const url = `https://localhost:7066/api/Profile/UpdatePersonalId`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    console.log("Personal id updated successfully.");
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
 const parseJwt = (token) => {
   if (!token) {
     return;
