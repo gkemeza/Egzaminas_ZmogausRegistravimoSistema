@@ -201,5 +201,97 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _logger.LogInformation($"Successfully updated email for user ID: {_userId}");
             return NoContent();
         }
+
+        [HttpPut("UpdateCity")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateCity([FromBody] UpdateCityRequest req)
+        {
+            _logger.LogInformation($"Updating city for user ID: {_userId}");
+
+            var user = _userRepository.GetUserById(_userId);
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found with ID: '{_userId}'");
+                return NotFound("User not found");
+            }
+
+            user.PersonInfo.Residence.City = req.NewCity;
+            _userRepository.UpdateUser(user);
+
+            _logger.LogInformation($"Successfully updated city for user ID: {_userId}");
+            return NoContent();
+        }
+
+        [HttpPut("UpdateStreet")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateStreet([FromBody] UpdateStreetRequest req)
+        {
+            _logger.LogInformation($"Updating street for user ID: {_userId}");
+
+            var user = _userRepository.GetUserById(_userId);
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found with ID: '{_userId}'");
+                return NotFound("User not found");
+            }
+
+            user.PersonInfo.Residence.Street = req.NewStreet;
+            _userRepository.UpdateUser(user);
+
+            _logger.LogInformation($"Successfully updated street for user ID: {_userId}");
+            return NoContent();
+        }
+
+        [HttpPut("UpdateHouseNumber")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateHouseNumber([FromBody] UpdateHouseNumberRequest req)
+        {
+            _logger.LogInformation($"Updating house number for user ID: {_userId}");
+
+            var user = _userRepository.GetUserById(_userId);
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found with ID: '{_userId}'");
+                return NotFound("User not found");
+            }
+
+            user.PersonInfo.Residence.HouseNumber = req.NewHouseNumber;
+            _userRepository.UpdateUser(user);
+
+            _logger.LogInformation($"Successfully updated house number for user ID: {_userId}");
+            return NoContent();
+        }
+
+        [HttpPut("UpdateRoomNumber")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateRoomNumber([FromBody] UpdateRoomNumberRequest req)
+        {
+            _logger.LogInformation($"Updating room number for user ID: {_userId}");
+
+            var user = _userRepository.GetUserById(_userId);
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found with ID: '{_userId}'");
+                return NotFound("User not found");
+            }
+
+            user.PersonInfo.Residence.RoomNumber = req.NewRoomNumber;
+            _userRepository.UpdateUser(user);
+
+            _logger.LogInformation($"Successfully updated room number for user ID: {_userId}");
+            return NoContent();
+        }
     }
 }
