@@ -13,7 +13,8 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
         [Required]
         public long PersonalId { get; set; }
         [Required]
-        public long PhoneNumber { get; set; }
+        [StringLength(100)]
+        public string PhoneNumber { get; set; } = null!;
         [Required]
         // TODO: email validator
         public string Email { get; set; } = null!;
