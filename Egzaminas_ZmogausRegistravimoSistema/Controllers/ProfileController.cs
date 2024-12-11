@@ -178,5 +178,28 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _logger.LogInformation($"Successfully updated phone number for user ID: {_userId}");
             return NoContent();
         }
+
+        [HttpPut("UpdateEmail")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateEmail([FromBody] UpdateEmailRequest req)
+        {
+            _logger.LogInformation($"Updating email for user ID: {_userId}");
+
+            var user = _userRepository.GetUserById(_userId);
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found with ID: '{_userId}'");
+                return NotFound("User not found");
+            }
+
+            user.PersonInfo.Email = req.NewEmail;
+            _userRepository.UpdateUser(user);
+
+            _logger.LogInformation($"Successfully updated email for user ID: {_userId}");
+            return NoContent();
+        }
     }
 }
