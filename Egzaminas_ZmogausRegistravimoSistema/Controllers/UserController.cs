@@ -37,17 +37,26 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         /// <param name="req">User request</param>
         /// <response code= "500">System error</response>
         [HttpPost("SignUp")]
-        //[Consumes("multipart/form-data")]
+        [Consumes("multipart/form-data")]
+        [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public IActionResult SignUp([FromBody] SignUpRequest req)
+        public IActionResult SignUp([FromForm] SignUpRequest req)
         {
             _logger.LogInformation($"Creating account for '{req.Username}'");
+
+            if (req.PersonInfo.Photo == null || req.PersonInfo.Photo.Length == 0)
+            {
+                _logger.LogWarning("No file uploaded or file is empty.");
+                return BadRequest("No file uploaded.");
+            }
+
             var user = _userMapper.Map(req);
-            //if (photo != null)
-            //{
-            //    user.PersonInfo.PhotoPath = _photoService.GetPhotoPath(photo, "Uploads/Profile-pictures");
-            //}
+
+            string photoPath = _photoService.GetPhotoPath(req.PersonInfo.Photo, "Uploads/Profile-pictures");
+            user.PersonInfo.PhotoPath = photoPath;
+
             var userId = _userRepository.CreateUser(user);
+
             _logger.LogInformation($"Account for '{req.Username}' created with id '{userId}'");
             return Created("", new { id = userId });
         }

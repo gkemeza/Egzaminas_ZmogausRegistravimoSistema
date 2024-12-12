@@ -18,10 +18,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
         [Required]
         // TODO: email validator
         public string Email { get; set; } = null!;
-        //[Required]
         //[MaxFileSize(5 * 1024 * 1024)]
         //[AllowedExtensions([".png"])]
-        //public IFormFile Photo { get; set; } = null!;
+        [Required]
+        public IFormFile Photo { get; set; } = null!;
 
         [Required]
         public ResidenceRequest Residence { get; set; } = null!;
