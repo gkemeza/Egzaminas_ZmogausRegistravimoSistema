@@ -30,6 +30,27 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _jwtService = jwtService;
             _photoService = photoService;
         }
+        /// <summary>
+        /// Get user by id
+        /// </summary>
+        /// <param name="id">User id</param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        [Authorize]
+        public IActionResult GetUser([FromRoute] Guid id)
+        {
+            _logger.LogInformation($"Getting user with ID: '{id}'");
+
+            var user = _userRepository.GetUserById(id);
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found with ID: '{id}'");
+                return NotFound("User not found");
+            }
+            // map to dto!
+
+            return Ok(user);
+        }
 
         /// <summary>
         /// Create a user account
