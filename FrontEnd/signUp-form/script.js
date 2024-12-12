@@ -6,7 +6,9 @@ const onSignUp = async () => {
   const personalId = document.querySelector("#signup-personalId").value;
   const phoneNumber = document.querySelector("#signup-phoneNumber").value;
   const email = document.querySelector("#signup-email").value;
-  const photoPath = document.querySelector("#signup-photo").value;
+  // const photoInput = document.querySelector("#signup-photo");
+  // const photo = photoInput.files[0];
+  // console.log("photoFile: ", photo);
   const city = document.querySelector("#signup-city").value;
   const street = document.querySelector("#signup-street").value;
   const houseNumber = document.querySelector("#signup-houseNumber").value;
@@ -20,7 +22,7 @@ const onSignUp = async () => {
     !personalId ||
     !phoneNumber ||
     !email ||
-    !photoPath ||
+    // !photo ||
     !city ||
     !street ||
     !houseNumber ||
@@ -33,6 +35,26 @@ const onSignUp = async () => {
 
   // TODO: add validations
 
+  // Prepare FormData
+  // const formData = new FormData();
+  // formData.append("username", username);
+  // formData.append("password", password);
+  // formData.append("firstName", firstName);
+  // formData.append("lastName", lastName);
+  // formData.append("personalId", personalId);
+  // formData.append("phoneNumber", phoneNumber);
+  // formData.append("email", email);
+  // // formData.append("photo", photo);
+  // formData.append("city", city);
+  // formData.append("street", street);
+  // formData.append("houseNumber", houseNumber);
+  // formData.append("roomNumber", roomNumber);
+
+  // console.log("FormData prepared for submission:");
+  // for (const [key, value] of formData.entries()) {
+  //   console.log(`${key}:`, value);
+  // }
+
   const data = {
     username,
     password,
@@ -42,7 +64,6 @@ const onSignUp = async () => {
       personalId,
       phoneNumber,
       email,
-      photoPath,
       residence: {
         city,
         street,
@@ -58,10 +79,7 @@ const onSignUp = async () => {
     const url = "https://localhost:7066/api/User/SignUp";
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
