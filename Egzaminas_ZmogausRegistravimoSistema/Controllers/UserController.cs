@@ -31,13 +31,13 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _photoService = photoService;
         }
         /// <summary>
-        /// Get user by id
+        /// Get user person info by user id
         /// </summary>
         /// <param name="id">User id</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         [Authorize]
-        public IActionResult GetUser([FromRoute] Guid id)
+        public IActionResult GetUserPerson([FromRoute] Guid id)
         {
             _logger.LogInformation($"Getting user with ID: '{id}'");
 
