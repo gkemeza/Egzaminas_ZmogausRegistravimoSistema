@@ -41,15 +41,32 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         {
             _logger.LogInformation($"Getting user with ID: '{id}'");
 
+            if (id == Guid.Empty)
+            {
+                _logger.LogWarning("Invalid user ID provided.");
+                return BadRequest("Invalid ID.");
+            }
+
             var user = _userRepository.GetUserById(id);
             if (user == null)
             {
                 _logger.LogWarning($"User not found with ID: '{id}'");
                 return NotFound("User not found");
             }
-            // map to dto!
 
-            return Ok(user);
+            var personInfo = _userMapper.Map(user);
+
+            try
+            {
+                byte[] photoBytes = _photoService.GetPhotoAsByteArray(user.PersonInfo.PhotoPath);
+                personInfo.PhotoBytes = photoBytes;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"An error occurred: {ex.Message}");
+            }
+
+            return Ok(personInfo);
         }
 
         /// <summary>

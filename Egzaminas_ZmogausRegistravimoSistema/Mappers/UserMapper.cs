@@ -1,4 +1,5 @@
 ﻿using Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests;
+using Egzaminas_ZmogausRegistravimoSistema.Dtos.Results;
 using Egzaminas_ZmogausRegistravimoSistema.Entities;
 using Egzaminas_ZmogausRegistravimoSistema.Mappers.Interfaces;
 using Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces;
@@ -36,6 +37,27 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Mappers
                         HouseNumber = dto.PersonInfo.Residence.HouseNumber,
                         RoomNumber = dto.PersonInfo.Residence.RoomNumber
                     }
+                }
+            };
+        }
+
+        public PersonInfoResult Map(User user)
+        {
+            return new PersonInfoResult
+            {
+                Id = user.PersonInfo.Id,
+                FirstName = user.PersonInfo.FirstName,
+                LastName = user.PersonInfo.LastName,
+                PersonalId = user.PersonInfo.PersonalId,
+                PhoneNumber = user.PersonInfo.PhoneNumber,
+                Email = user.PersonInfo.Email,
+                Residence = new ResidenceResult
+                {
+                    Id = user.PersonInfo.Residence.Id,
+                    City = user.PersonInfo.Residence.City,
+                    Street = user.PersonInfo.Residence.Street,
+                    HouseNumber = user.PersonInfo.Residence.HouseNumber,
+                    RoomNumber = user.PersonInfo.Residence.RoomNumber
                 }
             };
         }

@@ -17,7 +17,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Dtos\Results\" />
 		<Folder Include="Models\" />
 		<Folder Include="Uploads\" />
 	</ItemGroup>

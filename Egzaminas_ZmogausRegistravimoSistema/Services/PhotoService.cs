@@ -23,5 +23,20 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Services
 
             return filePath;
         }
+
+        public byte[] GetPhotoAsByteArray(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
+            }
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException($"File not found: {filePath}");
+            }
+
+            return File.ReadAllBytes(filePath);
+        }
     }
 }
