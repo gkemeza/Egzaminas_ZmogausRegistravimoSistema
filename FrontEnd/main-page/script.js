@@ -1,11 +1,6 @@
 const isAdmin = () => {
-  const token = localStorage.getItem("JWT");
+  const decodedToken = getDecodedJwtToken();
 
-  if (!token) {
-    return false;
-  }
-
-  const decodedToken = parseJwt(token);
   const roleClaim =
     "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
   console.log("Decoded token role: ", decodedToken[roleClaim]);
@@ -74,6 +69,50 @@ const onDelete = async () => {
   } catch (error) {
     console.error("Detailed error:", error);
   }
+};
+
+const onShowPersonInfo = async () => {
+  const id = getUserIdFromJwt();
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  try {
+    const url = `https://localhost:7066/api/User/${id}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    console.log("User person data: ", json);
+
+    displayJsonData(json);
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
+const displayJsonData = (jsonData) => {
+  const div = document.querySelector("#display-personInfo");
+  div.innerHTML = `
+    <p>Name: ${jsonData.firstName} ${jsonData.lastName}</p>
+    <p>Personal id: ${jsonData.personalId}</p>
+    <p>Phone number: ${jsonData.phoneNumber}</p>
+    <p>Email: ${jsonData.email}</p>
+    <p>Residence: ${jsonData.residence.city}, ${jsonData.residence.street} ${jsonData.residence.houseNumber}-${jsonData.residence.roomNumber}</p>
+  `;
 };
 
 const onUpdateUsername = async () => {
@@ -509,6 +548,26 @@ const onUpdateRoomNumber = async () => {
   } catch (error) {
     console.error("Detailed error:", error);
   }
+};
+
+const getUserIdFromJwt = () => {
+  const decodedToken = getDecodedJwtToken();
+
+  const roleClaim =
+    "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
+  console.log("Decoded token id: ", decodedToken[roleClaim]);
+
+  return decodedToken[roleClaim];
+};
+
+const getDecodedJwtToken = () => {
+  const token = localStorage.getItem("JWT");
+
+  if (!token) {
+    return false;
+  }
+
+  return parseJwt(token);
 };
 
 const parseJwt = (token) => {
