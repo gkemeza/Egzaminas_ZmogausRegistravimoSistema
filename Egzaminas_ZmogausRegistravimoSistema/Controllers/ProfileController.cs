@@ -17,15 +17,17 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         private readonly ILogger<ProfileController> _logger;
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
+        private readonly IPhotoService _photoService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly Guid _userId;
 
         public ProfileController(ILogger<ProfileController> logger, IUserRepository userRepository,
-            IAuthService authService, IHttpContextAccessor httpContextAccessor)
+            IAuthService authService, IPhotoService photoService, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _userRepository = userRepository;
             _authService = authService;
+            _photoService = photoService;
             _httpContextAccessor = httpContextAccessor;
             _userId = new Guid(_httpContextAccessor!.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         }
@@ -199,6 +201,35 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _userRepository.UpdateUser(user);
 
             _logger.LogInformation($"Successfully updated email for user ID: {_userId}");
+            return NoContent();
+        }
+
+        [HttpPut("UpdatePhoto")]
+        [Consumes("multipart/form-data")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdatePhoto([FromForm] UpdatePhotoRequest req)
+        {
+            _logger.LogInformation($"Updating photo for user ID: {_userId}");
+
+            if (req.NewPhoto == null || req.NewPhoto.Length == 0)
+            {
+                return BadRequest("No file uploaded.");
+            }
+
+            var user = _userRepository.GetUserById(_userId);
+            if (user == null)
+            {
+                _logger.LogWarning($"User not found with ID: '{_userId}'");
+                return NotFound("User not found");
+            }
+
+            var newPhotoPath = _photoService.GetPhotoPath(req.NewPhoto, "Uploads/Profile-pictures");
+            user.PersonInfo.PhotoPath = newPhotoPath;
+            _userRepository.UpdateUser(user);
+
+            _logger.LogInformation($"Successfully updated photo for user ID: {_userId}");
             return NoContent();
         }
 
