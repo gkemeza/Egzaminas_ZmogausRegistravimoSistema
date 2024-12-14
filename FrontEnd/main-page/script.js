@@ -384,6 +384,45 @@ const onUpdateEmail = async () => {
   }
 };
 
+const onUpdatePhoto = async () => {
+  const newPhotoInput = document.querySelector("#update-photo");
+  const newPhoto = newPhotoInput.files[0];
+
+  if (!newPhoto) {
+    // TODO: display error
+    console.error("Photo is not selected");
+    return;
+  }
+
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("newPhoto", newPhoto);
+
+  try {
+    const url = `https://localhost:7066/api/Profile/UpdatePhoto`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error status: ${response.status}`);
+    }
+
+    console.log("Photo updated successfully.");
+  } catch (error) {
+    console.error("Detailed error:", error);
+  }
+};
+
 const onUpdateCity = async () => {
   const newCity = document.querySelector("#update-city").value;
 
