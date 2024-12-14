@@ -215,7 +215,8 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
 
             if (req.NewPhoto == null || req.NewPhoto.Length == 0)
             {
-                return BadRequest("No file uploaded.");
+                _logger.LogWarning("Photo can't be empty");
+                return BadRequest("No photo uploaded.");
             }
 
             var user = _userRepository.GetUserById(_userId);
