@@ -111,8 +111,14 @@ const displayJsonData = (jsonData) => {
     <p>Personal id: ${jsonData.personalId}</p>
     <p>Phone number: ${jsonData.phoneNumber}</p>
     <p>Email: ${jsonData.email}</p>
+    <p>Photo:</p>
+    <img></img>
     <p>Residence: ${jsonData.residence.city}, ${jsonData.residence.street} ${jsonData.residence.houseNumber}-${jsonData.residence.roomNumber}</p>
   `;
+
+  const base64Data = `data:image;base64,${jsonData.photoBytes}`;
+  const imgElement = document.querySelector("img");
+  imgElement.src = base64Data;
 };
 
 const onUpdateUsername = async () => {
