@@ -3,7 +3,9 @@ const onSignUp = async () => {
   const password = document.querySelector("#signup-password").value;
   const firstName = document.querySelector("#signup-firstName").value;
   const lastName = document.querySelector("#signup-lastName").value;
-  const personalId = document.querySelector("#signup-personalId").value;
+  const personalIdNumber = document.querySelector(
+    "#signup-personalIdNumber"
+  ).value;
   const phoneNumber = document.querySelector("#signup-phoneNumber").value;
   const email = document.querySelector("#signup-email").value;
   const photoInput = document.querySelector("#signup-photo");
@@ -18,7 +20,7 @@ const onSignUp = async () => {
     !password ||
     !firstName ||
     !lastName ||
-    !personalId ||
+    !personalIdNumber ||
     !phoneNumber ||
     !email ||
     !photoInput ||
@@ -41,7 +43,7 @@ const onSignUp = async () => {
 
   formData.append("personInfo.firstName", firstName);
   formData.append("personInfo.lastName", lastName);
-  formData.append("personInfo.personalId", personalId);
+  formData.append("personInfo.personalIdNumber", personalIdNumber);
   formData.append("personInfo.phoneNumber", phoneNumber);
   formData.append("personInfo.email", email);
   formData.append("personInfo.photo", photo);

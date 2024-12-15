@@ -108,7 +108,7 @@ const displayJsonData = (jsonData) => {
   const div = document.querySelector("#display-personInfo");
   div.innerHTML = `
     <p>Name: ${jsonData.firstName} ${jsonData.lastName}</p>
-    <p>Personal id: ${jsonData.personalId}</p>
+    <p>Personal id number: ${jsonData.personalIdNumber}</p>
     <p>Phone number: ${jsonData.phoneNumber}</p>
     <p>Email: ${jsonData.email}</p>
     <p>Photo:</p>
@@ -255,12 +255,14 @@ const onUpdateName = async () => {
   }
 };
 
-const onUpdatePersonalId = async () => {
-  const newPersonalId = document.querySelector("#update-personalId").value;
+const onUpdatePersonalIdNumber = async () => {
+  const newPersonalIdNumber = document.querySelector(
+    "#update-personalIdNumber"
+  ).value;
 
-  if (!newPersonalId) {
+  if (!newPersonalIdNumber) {
     // TODO: display error
-    console.error("Personal id is required");
+    console.error("Personal id number is required");
     return;
   }
 
@@ -273,11 +275,11 @@ const onUpdatePersonalId = async () => {
   }
 
   const data = {
-    newPersonalId,
+    newPersonalIdNumber,
   };
 
   try {
-    const url = `https://localhost:7066/api/Profile/UpdatePersonalId`;
+    const url = `https://localhost:7066/api/Profile/UpdatePersonalIdNumber`;
     const response = await fetch(url, {
       method: "PUT",
       headers: {
@@ -292,7 +294,7 @@ const onUpdatePersonalId = async () => {
       throw new Error(`Error status: ${response.status}`);
     }
 
-    console.log("Personal id updated successfully.");
+    console.log("Personal id number updated successfully.");
   } catch (error) {
     console.error("Detailed error:", error);
   }
