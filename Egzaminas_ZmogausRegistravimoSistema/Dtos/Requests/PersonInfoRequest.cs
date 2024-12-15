@@ -11,7 +11,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
         [StringLength(100)]
         public string LastName { get; set; } = null!;
         [Required]
-        public long PersonalId { get; set; }
+        public long PersonalIdNumber { get; set; }
         [Required]
         [StringLength(100)]
         public string PhoneNumber { get; set; } = null!;

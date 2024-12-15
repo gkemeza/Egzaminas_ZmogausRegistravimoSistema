@@ -135,14 +135,14 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
-        [HttpPut("UpdatePersonalId")]
+        [HttpPut("UpdatePersonalIdNumber")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult UpdatePersonalId([FromBody] UpdatePersonalIdRequest req)
+        public IActionResult UpdatePersonalIdNumber([FromBody] UpdatePersonalIdNumberRequest req)
         {
-            _logger.LogInformation($"Updating personal id for user ID: {_userId}");
+            _logger.LogInformation($"Updating personal id number for user ID: {_userId}");
 
             var user = _userRepository.GetUserById(_userId);
             if (user == null)
@@ -151,10 +151,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
                 return NotFound("User not found");
             }
 
-            user.PersonInfo.PersonalId = req.NewPersonalId;
+            user.PersonInfo.PersonalIdNumber = req.NewPersonalIdNumber;
             _userRepository.UpdateUser(user);
 
-            _logger.LogInformation($"Successfully updated personal id for user ID: {_userId}");
+            _logger.LogInformation($"Successfully updated personal id number for user ID: {_userId}");
             return NoContent();
         }
 

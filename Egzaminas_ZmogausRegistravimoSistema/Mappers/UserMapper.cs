@@ -27,7 +27,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Mappers
                 {
                     FirstName = dto.PersonInfo.FirstName,
                     LastName = dto.PersonInfo.LastName,
-                    PersonalId = dto.PersonInfo.PersonalId,
+                    PersonalIdNumber = dto.PersonInfo.PersonalIdNumber,
                     PhoneNumber = dto.PersonInfo.PhoneNumber,
                     Email = dto.PersonInfo.Email,
                     Residence = new Residence
@@ -48,7 +48,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Mappers
                 Id = user.PersonInfo.Id,
                 FirstName = user.PersonInfo.FirstName,
                 LastName = user.PersonInfo.LastName,
-                PersonalId = user.PersonInfo.PersonalId,
+                PersonalIdNumber = user.PersonInfo.PersonalIdNumber,
                 PhoneNumber = user.PersonInfo.PhoneNumber,
                 Email = user.PersonInfo.Email,
                 Residence = new ResidenceResult
