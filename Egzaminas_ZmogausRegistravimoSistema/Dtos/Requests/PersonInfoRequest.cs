@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Egzaminas_ZmogausRegistravimoSistema.Validators;
+using System.ComponentModel.DataAnnotations;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
 {
@@ -15,12 +16,12 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
         [Required]
         [StringLength(100)]
         public string PhoneNumber { get; set; } = null!;
-        [Required]
-        // TODO: email validator
+        [EmailAddress]
+        [EmailValidator]
         public string Email { get; set; } = null!;
-        //[MaxFileSize(5 * 1024 * 1024)]
-        //[AllowedExtensions([".png"])]
-        [Required]
+        //[Required]
+        [MaxPhotoSize(5 * 1024 * 1024)]
+        [AllowedExtensions([".jpg", ".jpeg", ".png", ".svg", ".tiff"])]
         public IFormFile Photo { get; set; } = null!;
 
         [Required]
