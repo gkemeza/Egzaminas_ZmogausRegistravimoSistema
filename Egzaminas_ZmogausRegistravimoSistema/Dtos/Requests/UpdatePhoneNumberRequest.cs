@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Egzaminas_ZmogausRegistravimoSistema.Validators;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
 {
     public class UpdatePhoneNumberRequest
     {
-        [Required]
+        [PhoneNumberValidator]
         public string NewPhoneNumber { get; set; } = null!;
     }
 }

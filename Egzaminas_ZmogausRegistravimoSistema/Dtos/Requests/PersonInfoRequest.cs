@@ -11,17 +11,15 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
         [Required]
         [StringLength(100)]
         public string LastName { get; set; } = null!;
-        [Required]
+        [PersonalIdNumberValidator]
         public long PersonalIdNumber { get; set; }
-        [Required]
-        [StringLength(100)]
+        [PhoneNumberValidator]
         public string PhoneNumber { get; set; } = null!;
         [EmailAddress]
         [EmailValidator]
         public string Email { get; set; } = null!;
-        //[Required]
         [MaxPhotoSize(5 * 1024 * 1024)]
-        [AllowedExtensions([".jpg", ".jpeg", ".png", ".svg", ".tiff"])]
+        [AllowedExtensions([".jpg", ".jpeg", ".png", ".bmp", ".gif"])]
         public IFormFile Photo { get; set; } = null!;
 
         [Required]

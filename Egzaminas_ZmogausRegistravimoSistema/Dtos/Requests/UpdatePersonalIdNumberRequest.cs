@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Egzaminas_ZmogausRegistravimoSistema.Validators;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
 {
     public class UpdatePersonalIdNumberRequest
     {
-        [Required]
+        [PersonalIdNumberValidator]
         public long NewPersonalIdNumber { get; set; }
     }
 }

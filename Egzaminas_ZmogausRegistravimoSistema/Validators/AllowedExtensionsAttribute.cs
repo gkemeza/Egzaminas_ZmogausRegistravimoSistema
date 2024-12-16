@@ -4,30 +4,25 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Validators
 {
     public class AllowedExtensionsAttribute : ValidationAttribute
     {
-        private readonly string[] _extensions;
+        private readonly string[] _allowedExtensions;
 
         public AllowedExtensionsAttribute(string[] extensions)
         {
-            _extensions = extensions;
+            _allowedExtensions = extensions;
         }
 
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            // value is IFormFile file
-            if (value is not string fileName)
+            if (value is IFormFile file)
             {
-                return ValidationResult.Success;
-            }
-
-            foreach (var extension in _extensions)
-            {
-                if (fileName.EndsWith(extension))
+                var extension = Path.GetExtension(file.FileName);
+                if (!_allowedExtensions.Contains(extension))
                 {
-                    return ValidationResult.Success;
+                    return new ValidationResult($"File extension not allowed. Allowed extensions: {string.Join(", ", _allowedExtensions)}");
                 }
             }
 
-            return new ValidationResult($"File extension not allowed. Allowed extensions: {string.Join(", ", _extensions)}");
+            return ValidationResult.Success;
         }
     }
 }
