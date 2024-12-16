@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35521.163 d17.12
+VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Egzaminas_ZmogausRegistravimoSistema", "Egzaminas_ZmogausRegistravimoSistema\Egzaminas_ZmogausRegistravimoSistema.csproj", "{0EFE4748-3BD9-4A29-A3F1-356C15CB369B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Egzaminas_ZmogausRegistravimoSistemaTests", "Egzaminas_ZmogausRegistravimoSistemaTests\Egzaminas_ZmogausRegistravimoSistemaTests.csproj", "{4BCD21D0-1284-4BB3-88AC-9E7F5CD0484B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0EFE4748-3BD9-4A29-A3F1-356C15CB369B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EFE4748-3BD9-4A29-A3F1-356C15CB369B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EFE4748-3BD9-4A29-A3F1-356C15CB369B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BCD21D0-1284-4BB3-88AC-9E7F5CD0484B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BCD21D0-1284-4BB3-88AC-9E7F5CD0484B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BCD21D0-1284-4BB3-88AC-9E7F5CD0484B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BCD21D0-1284-4BB3-88AC-9E7F5CD0484B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
