@@ -18,10 +18,11 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IJwtService _jwtService;
         private readonly IPhotoService _photoService;
+        private readonly IUserService _userService;
 
         public UserController(ILogger<UserController> logger, IAuthService authService,
             IUserMapper userMapper, IUserRepository userRepository, IJwtService jwtService,
-            IPhotoService photoService)
+            IPhotoService photoService, IUserService userService)
         {
             _logger = logger;
             _authService = authService;
@@ -29,7 +30,9 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _userRepository = userRepository;
             _jwtService = jwtService;
             _photoService = photoService;
+            _userService = userService;
         }
+
         /// <summary>
         /// Get user person info by user id
         /// </summary>
@@ -88,12 +91,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
                 return BadRequest("No file uploaded.");
             }
 
-            var user = _userMapper.Map(req);
-
-            string photoPath = _photoService.GetPhotoPath(req.PersonInfo.Photo, "Uploads/Profile-pictures");
-            user.PersonInfo.PhotoPath = photoPath;
-
-            var userId = _userRepository.CreateUser(user);
+            var userId = _userService.SignUp(req);
 
             _logger.LogInformation($"Account for '{req.Username}' created with id '{userId}'");
             return Created("", new { id = userId });
