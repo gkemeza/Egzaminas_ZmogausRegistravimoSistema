@@ -1,0 +1,178 @@
+/* General reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff3e2; /* Lightest background */
+  color: #333; /* Neutral text color */
+  line-height: 1.6;
+}
+
+/* Center content */
+body,
+html {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Main Title */
+h1 {
+  font-size: 2.5em;
+  color: #fa9884; /* Coral-like color */
+  margin-bottom: 30px;
+}
+
+/* Section Titles */
+h2 {
+  font-size: 1.5em;
+  color: #fa9884; /* Coral-like color */
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Input fields */
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+input[type="file"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 1em;
+  border: 1px solid #fa9884; /* Coral-like border */
+  border-radius: 5px;
+  background-color: #ffe5ca; /* Light beige background */
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #e74646; /* Vibrant red */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #fa9884; /* Coral-like hover */
+}
+
+/* Div for sections */
+#endpoints-container {
+  width: 100%;
+  max-width: 600px;
+  background-color: #ffe5ca; /* Light beige section background */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Focus effect for inputs */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus {
+  outline: none;
+  border-color: #e74646; /* Red focus outline */
+  box-shadow: 0 0 5px rgba(231, 70, 70, 0.5);
+}
+
+/* Section spacing */
+br {
+  margin: 10px 0;
+}
+
+/* Styling for the delete endpoint */
+#delete-endpoint {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #fa9884;
+  border-radius: 5px;
+  background-color: #ffe5ca;
+}
+
+#delete-endpoint h2 {
+  font-size: 1.5em;
+  color: tomato;
+}
+
+#delete-endpoint input {
+  width: 90%;
+  padding: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #fa9884;
+  border-radius: 4px;
+}
+
+#delete-endpoint button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+#delete-endpoint button:hover {
+  background-color: #e60000;
+}
+
+/* Styling for the display-personInfo container */
+#display-personInfo {
+  display: none; /* Hide by default */
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #ffe5ca;
+}
+
+#display-personInfo.visible {
+  display: block; /* Show when the class is added */
+}
+
+#display-personInfo p {
+  font-size: 1em;
+  margin: 5px 0;
+  color: #333;
+}
+
+#display-personInfo img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover; /* Ensures the image maintains its aspect ratio and fits within the 200x200 box */
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+#display-personInfo p:first-of-type {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* General adjustments to ensure consistency */
+button {
+  transition: all 0.3s ease-in-out;
+}
+
+button:active {
+  transform: scale(0.98);
+}

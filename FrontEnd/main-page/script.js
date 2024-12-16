@@ -119,6 +119,8 @@ const displayJsonData = (jsonData) => {
   const base64Data = `data:image;base64,${jsonData.photoBytes}`;
   const imgElement = document.querySelector("img");
   imgElement.src = base64Data;
+
+  div.classList.add("visible");
 };
 
 const onUpdateUsername = async () => {

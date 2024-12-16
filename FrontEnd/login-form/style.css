@@ -1,0 +1,65 @@
+/* General reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff3e2; /* Lightest background */
+  color: #333; /* Neutral text color */
+}
+
+/* Center content */
+body,
+html {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Page Title */
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #fa9884; /* Coral-like color */
+}
+
+/* Input fields */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 1em;
+  border: 1px solid #fa9884; /* Coral-like border */
+  border-radius: 5px;
+  background-color: #ffe5ca; /* Light beige background */
+}
+
+/* Button */
+button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #e74646; /* Vibrant red */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #fa9884; /* Coral-like hover */
+}
+
+/* Focus effect */
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #e74646; /* Red focus outline */
+  box-shadow: 0 0 5px rgba(231, 70, 70, 0.5);
+}
