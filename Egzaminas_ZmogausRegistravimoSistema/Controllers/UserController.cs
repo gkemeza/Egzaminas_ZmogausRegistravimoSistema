@@ -81,6 +81,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [Consumes("multipart/form-data")]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult SignUp([FromForm] SignUpRequest req)
         {
             _logger.LogInformation($"Creating account for '{req.Username}'");
@@ -153,7 +154,5 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _userRepository.DeleteUser(id);
             return NoContent();
         }
-
-
     }
 }
