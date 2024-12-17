@@ -58,26 +58,6 @@ const onSignUp = async () => {
     console.log(`${key}:`, value);
   }
 
-  // const data = {
-  //   username,
-  //   password,
-  //   personInfo: {
-  //     firstName,
-  //     lastName,
-  //     personalId,
-  //     phoneNumber,
-  //     email,
-  //     residence: {
-  //       city,
-  //       street,
-  //       houseNumber,
-  //       roomNumber,
-  //     },
-  //   },
-  // };
-
-  // console.log("Payload sent to server:", JSON.stringify(data, null, 2));
-
   try {
     const url = "https://localhost:7066/api/User/SignUp";
     const response = await fetch(url, {
