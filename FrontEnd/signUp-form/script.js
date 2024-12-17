@@ -41,6 +41,7 @@ const onSignUp = async () => {
     personalIdNumberValidation(personalIdNumber);
     phoneNumberValidation(phoneNumber);
     emailValidation(email);
+    photoValidation(photo);
   } catch (error) {
     return;
   }
@@ -284,7 +285,6 @@ function isValidLithuanianPersonalIdChecksum(personalIdNumber) {
 }
 
 const phoneNumberValidation = (phoneNumber) => {
-  console.log("Phone Number:", phoneNumber);
   const phoneNumberRegex = /^\+?[1-9]\d{1,14}$/;
   if (!phoneNumberRegex.test(phoneNumber)) {
     displayWrongPhoneNumberError();
@@ -325,6 +325,53 @@ const displayWrongEmailError = () => {
 
   div.innerHTML = `
     <h1 class="error-title">Invalid email!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
+const photoValidation = (photo) => {
+  const allowedExtensions = [".jpg", ".jpeg", ".png", ".bmp", ".gif"];
+  if (!isValidPhotoExtension(photo, allowedExtensions)) {
+    displayWrongPhotoExtensionError(allowedExtensions);
+    throw new Error(
+      `Photo extension not allowed. Allowed extensions: ${allowedExtensions.join(
+        ", "
+      )}`
+    );
+  }
+};
+
+const isValidPhotoExtension = (photo, allowedExtensions) => {
+  if (!photo) {
+    throw new Error("No photo selected.");
+  }
+
+  const extension = photo.name.split(".").pop().toLowerCase();
+  const fullExtension = `.${extension}`;
+
+  if (!allowedExtensions.includes(fullExtension)) {
+    return false;
+  }
+
+  return true;
+};
+
+const displayWrongPhotoExtensionError = (allowedExtensions) => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongEmail");
+
+  div.innerHTML = `
+    <h1 class="error-title">Photo extension not allowed. Allowed extensions: ${allowedExtensions.join(
+      ", "
+    )}</h1>
     <button class="close-error-button">Close</button>
   `;
 
