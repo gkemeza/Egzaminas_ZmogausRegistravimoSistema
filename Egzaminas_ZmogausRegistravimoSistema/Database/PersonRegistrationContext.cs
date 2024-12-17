@@ -1,6 +1,9 @@
 ﻿using Egzaminas_ZmogausRegistravimoSistema.Database.InitialData;
 using Egzaminas_ZmogausRegistravimoSistema.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Database
 {
@@ -9,7 +12,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Database
         public DbSet<User> Users { get; set; }
         public DbSet<PersonInfo> PersonInfos { get; set; }
         public DbSet<Residence> Residences { get; set; }
-        public bool SkipSeeding { get; set; } = false;
 
         public PersonRegistrationContext(DbContextOptions<PersonRegistrationContext> options) : base(options) { }
 
@@ -24,16 +26,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            if (!SkipSeeding)
-            {
-                modelBuilder.Entity<User>()
-                    .HasData(UsersInitialDataSeed.Users);
-                modelBuilder.Entity<PersonInfo>()
-                    .HasData(PersonInfoDataSeed.PersonInfos);
-                modelBuilder.Entity<Residence>()
-                    .HasData(ResidenceDataSeed.Residences);
-            }
-
             modelBuilder.Entity<User>()
             .HasOne(u => u.PersonInfo)
             .WithOne(p => p.User)
