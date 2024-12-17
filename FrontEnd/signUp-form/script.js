@@ -15,6 +15,7 @@ const onSignUp = async () => {
   const houseNumber = document.querySelector("#signup-houseNumber").value;
   const roomNumber = document.querySelector("#signup-roomNumber").value;
 
+  // Validations
   if (
     !username ||
     !password ||
@@ -30,12 +31,19 @@ const onSignUp = async () => {
     !houseNumber ||
     !roomNumber
   ) {
-    // TODO: display error
-    console.error("All fields are required.");
+    displayEmptyFieldsError();
     return;
   }
 
-  // TODO: add validations
+  try {
+    usernameValidation(username);
+    passwordValidation(password);
+    personalIdNumberValidation(personalIdNumber);
+    phoneNumberValidation(phoneNumber);
+    emailValidation(email);
+  } catch (error) {
+    return;
+  }
 
   const formData = new FormData();
   formData.append("username", username);
@@ -80,11 +88,8 @@ const onSignUp = async () => {
 
 const logIn = async (username, password) => {
   if (!username || !password) {
-    // TODO: display error
     return;
   }
-
-  // TODO: add validations
 
   const data = { username, password };
 
@@ -113,4 +118,220 @@ const logIn = async (username, password) => {
   } catch (error) {
     console.error("Detailed error:", error);
   }
+};
+
+const removeExistingErrorContainer = () => {
+  const div = document.querySelector(".error-container");
+  if (div) {
+    div.remove();
+  }
+};
+
+const displayEmptyFieldsError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "emptyFields");
+
+  div.innerHTML = `
+    <h1 class="error-title">All fields are required!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
+const usernameValidation = (username) => {
+  const minLength = 3;
+
+  if (minLength > username.length) {
+    displayWrongUsernameError();
+    throw new Error("Invalid username!");
+  }
+};
+
+const displayWrongUsernameError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongUsername");
+
+  div.innerHTML = `
+    <h1 class="error-title">Username must be at least 3 characters long!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
+const passwordValidation = (password) => {
+  const minLength = 8;
+  const hasUpperCase = /[A-Z]/;
+  const hasLowerCase = /[a-z]/;
+  const hasDigit = /\d/;
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+  if (
+    !(
+      password.length >= minLength &&
+      hasUpperCase.test(password) &&
+      hasLowerCase.test(password) &&
+      hasDigit.test(password) &&
+      hasSpecialChar.test(password)
+    )
+  ) {
+    displayWrongPasswordError();
+    throw new Error("Invalid password!");
+  }
+};
+
+const displayWrongPasswordError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongPassword");
+
+  div.innerHTML = `
+    <h1 class="error-title">Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
+const personalIdNumberValidation = (personalIdNumber) => {
+  const validationResult = validatePersonalId(personalIdNumber);
+  if (validationResult) {
+    displayWrongPersonalIdNumberError(validationResult);
+    throw new Error("Invalid Personal Id Number");
+  }
+};
+
+const displayWrongPersonalIdNumberError = (validationMessage) => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongPersonalIdNumber");
+
+  div.innerHTML = `
+    <h1 class="error-title">${validationMessage}!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
+const validatePersonalId = (personalIdNumber) => {
+  if (isNaN(personalIdNumber)) {
+    return "Personal ID number must be numeric.";
+  }
+
+  if (personalIdNumber.length !== 11) {
+    return "Personal ID number must be exactly 11 digits.";
+  }
+
+  if (!isValidLithuanianPersonalIdChecksum(personalIdNumber)) {
+    return "Invalid Personal ID number.";
+  }
+
+  return null;
+};
+
+function isValidLithuanianPersonalIdChecksum(personalIdNumber) {
+  const weights1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2];
+  const weights2 = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4];
+
+  let sum = 0;
+
+  // First iteration weights
+  for (let i = 0; i < 10; i++) {
+    sum += parseInt(personalIdNumber[i]) * weights1[i];
+  }
+
+  let checksum = sum % 11;
+
+  if (checksum === 10) {
+    // Second iteration weights
+    sum = 0;
+    for (let i = 0; i < 10; i++) {
+      sum += parseInt(personalIdNumber[i]) * weights2[i];
+    }
+
+    checksum = sum % 11;
+
+    if (checksum === 10) {
+      checksum = 0;
+    }
+  }
+
+  return checksum === parseInt(personalIdNumber[10]);
+}
+
+const phoneNumberValidation = (phoneNumber) => {
+  console.log("Phone Number:", phoneNumber);
+  const phoneNumberRegex = /^\+?[1-9]\d{1,14}$/;
+  if (!phoneNumberRegex.test(phoneNumber)) {
+    displayWrongPhoneNumberError();
+    throw new Error("Invalid phone number");
+  }
+};
+
+const displayWrongPhoneNumberError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongPhoneNumber");
+
+  div.innerHTML = `
+    <h1 class="error-title">Invalid Phone Number!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
+const emailValidation = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    displayWrongEmailError();
+    throw new Error("Invalid email");
+  }
+};
+
+const displayWrongEmailError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongEmail");
+
+  div.innerHTML = `
+    <h1 class="error-title">Invalid email!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
 };
