@@ -32,7 +32,7 @@ const onLogin = async () => {
 
     localStorage.setItem("JWT", token);
 
-    window.location.href = "../main-page/main.html"; // go to main page
+    window.location.href = "../profile-page/profile.html";
   } catch (error) {
     console.error("Detailed error:", error);
   }
