@@ -73,7 +73,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Services
                 // Save the resized image to a memory stream
                 using (var outputStream = new MemoryStream())
                 {
-                    resizedImage.Save(outputStream, imageFormat); // Change format if needed
+                    resizedImage.Save(outputStream, imageFormat);
                     return outputStream.ToArray();
                 }
             }
