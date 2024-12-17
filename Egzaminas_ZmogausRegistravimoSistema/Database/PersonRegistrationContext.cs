@@ -1,9 +1,5 @@
-﻿using Egzaminas_ZmogausRegistravimoSistema.Database.InitialData;
-using Egzaminas_ZmogausRegistravimoSistema.Entities;
+﻿using Egzaminas_ZmogausRegistravimoSistema.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Database
 {
