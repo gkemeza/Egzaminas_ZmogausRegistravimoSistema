@@ -26,6 +26,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema
             // TODO: add ConfigureServices() method
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IAuthService, AuthService>();
+            builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IUserMapper, UserMapper>();
             builder.Services.AddTransient<IJwtService, JwtService>();
             builder.Services.AddTransient<IPhotoService, PhotoService>();
