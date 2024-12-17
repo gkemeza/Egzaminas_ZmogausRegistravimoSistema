@@ -1,5 +1,4 @@
 ﻿using Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests;
-using Egzaminas_ZmogausRegistravimoSistema.Entities;
 using Egzaminas_ZmogausRegistravimoSistema.Repositories.Interfaces;
 using Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
