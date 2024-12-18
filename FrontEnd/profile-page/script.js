@@ -1,3 +1,15 @@
+const displayUsername = async () => {
+  const token = localStorage.getItem("JWT");
+  if (!token) {
+    console.error("No token found. User is not authenticated.");
+    return;
+  }
+
+  const username = getUsernameFromJwt();
+  const heading = document.querySelector("h1");
+  heading.innerHTML += ` ${username}!`;
+};
+
 const isAdmin = () => {
   const decodedToken = getDecodedJwtToken();
 
@@ -62,8 +74,6 @@ const onDelete = async () => {
     return;
   }
 
-  // TODO: add validations
-
   if (!confirm(`Are you sure you want to delete user '${id}'?`)) {
     return;
   }
@@ -99,7 +109,23 @@ const onDelete = async () => {
   }
 };
 
-const displayNotFoundError = () => {};
+const displayNotFoundError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "userNotFound");
+
+  div.innerHTML = `
+    <h1 class="error-title">Invalid Id!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
 
 const onShowPersonInfo = async () => {
   const id = getUserIdFromJwt();
@@ -431,7 +457,7 @@ const displayWrongPersonalIdNumberError = (validationMessage) => {
   div.classList.add("error-container", "wrongPersonalIdNumber");
 
   div.innerHTML = `
-    <h1 class="error-title">${validationMessage}!</h1>
+    <h1 class="error-title">${validationMessage}</h1>
     <button class="close-error-button">Close</button>
   `;
 
@@ -445,15 +471,15 @@ const displayWrongPersonalIdNumberError = (validationMessage) => {
 
 const validatePersonalId = (personalIdNumber) => {
   if (isNaN(personalIdNumber)) {
-    return "Personal ID number must be numeric.";
+    return "Personal ID number must be numeric!";
   }
 
   if (personalIdNumber.length !== 11) {
-    return "Personal ID number must be exactly 11 digits.";
+    return "Personal ID number must be exactly 11 digits!";
   }
 
   if (!isValidLithuanianPersonalIdChecksum(personalIdNumber)) {
-    return "Invalid Personal ID number.";
+    return "Invalid Personal ID number!";
   }
 
   return null;
@@ -879,6 +905,15 @@ const onUpdateRoomNumber = async () => {
   }
 };
 
+const getUsernameFromJwt = () => {
+  const decodedToken = getDecodedJwtToken();
+
+  const roleClaim =
+    "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
+
+  return decodedToken[roleClaim];
+};
+
 const getUserIdFromJwt = () => {
   const decodedToken = getDecodedJwtToken();
 
@@ -910,6 +945,7 @@ const parseJwt = (token) => {
 };
 
 const initialData = () => {
+  displayUsername();
   if (isAdmin()) {
     addDeleteEndpoint();
   }
