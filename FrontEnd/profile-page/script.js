@@ -3,9 +3,33 @@ const isAdmin = () => {
 
   const roleClaim =
     "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
-  console.log("Decoded token role: ", decodedToken[roleClaim]);
 
   return decodedToken[roleClaim] === "Admin";
+};
+
+const removeExistingErrorContainer = () => {
+  const div = document.querySelector(".error-container");
+  if (div) {
+    div.remove();
+  }
+};
+
+const displayEmptyFieldError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "emptyField");
+
+  div.innerHTML = `
+    <h1 class="error-title">The field is empty!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
 };
 
 const addDeleteEndpoint = () => {
@@ -33,7 +57,7 @@ const onDelete = async () => {
   const id = document.querySelector("#delete-id").value;
 
   if (!id) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("ID is required");
     return;
   }
@@ -62,6 +86,10 @@ const onDelete = async () => {
     });
 
     if (!response.ok) {
+      if (response.status === 404) {
+        displayNotFoundError();
+        throw new Error(`Invalid id!`);
+      }
       throw new Error(`Error status: ${response.status}`);
     }
 
@@ -70,6 +98,8 @@ const onDelete = async () => {
     console.error("Detailed error:", error);
   }
 };
+
+const displayNotFoundError = () => {};
 
 const onShowPersonInfo = async () => {
   const id = getUserIdFromJwt();
@@ -96,7 +126,6 @@ const onShowPersonInfo = async () => {
     }
 
     const json = await response.json();
-    console.log("User person data: ", json);
 
     displayJsonData(json);
   } catch (error) {
@@ -127,12 +156,12 @@ const onUpdateUsername = async () => {
   const newUsername = document.querySelector("#update-username").value;
 
   if (!newUsername) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("Username is required");
     return;
   }
 
-  // TODO: add validations
+  usernameValidation(newUsername);
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -166,17 +195,44 @@ const onUpdateUsername = async () => {
   }
 };
 
+const usernameValidation = (username) => {
+  const minLength = 3;
+
+  if (minLength > username.length) {
+    displayWrongUsernameError();
+    throw new Error("Invalid username!");
+  }
+};
+
+const displayWrongUsernameError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongUsername");
+
+  div.innerHTML = `
+    <h1 class="error-title">Username must be at least 3 characters long!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
 const onUpdatePassword = async () => {
   const currentPassword = document.querySelector("#update-password-old").value;
   const newPassword = document.querySelector("#update-password-new").value;
 
   if (!currentPassword || !newPassword) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("Current and new username is required");
     return;
   }
 
-  // TODO: add validations
+  passwordValidation(newPassword);
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -202,6 +258,10 @@ const onUpdatePassword = async () => {
     });
 
     if (!response.ok) {
+      if (response.status === 401) {
+        displayUnauthorizedError();
+        throw new Error(`Invalid password!`);
+      }
       throw new Error(`Error status: ${response.status}`);
     }
 
@@ -211,17 +271,72 @@ const onUpdatePassword = async () => {
   }
 };
 
+const passwordValidation = (password) => {
+  const minLength = 8;
+  const hasUpperCase = /[A-Z]/;
+  const hasLowerCase = /[a-z]/;
+  const hasDigit = /\d/;
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+  if (
+    !(
+      password.length >= minLength &&
+      hasUpperCase.test(password) &&
+      hasLowerCase.test(password) &&
+      hasDigit.test(password) &&
+      hasSpecialChar.test(password)
+    )
+  ) {
+    displayWrongPasswordError();
+    throw new Error("Invalid password!");
+  }
+};
+
+const displayWrongPasswordError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongPassword");
+
+  div.innerHTML = `
+    <h1 class="error-title">New password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
+const displayUnauthorizedError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "userNotFound");
+
+  div.innerHTML = `
+    <h1 class="error-title">Old password is wrong!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
 const onUpdateName = async () => {
   const firstName = document.querySelector("#update-firstName").value;
   const lastName = document.querySelector("#update-lastName").value;
 
   if (!firstName && !lastName) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("Both fields are empty. Provide at least one name.");
     return;
   }
-
-  // TODO: add validations
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -263,12 +378,12 @@ const onUpdatePersonalIdNumber = async () => {
   ).value;
 
   if (!newPersonalIdNumber) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("Personal id number is required");
     return;
   }
 
-  // TODO: add validations
+  personalIdNumberValidation(newPersonalIdNumber);
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -302,16 +417,88 @@ const onUpdatePersonalIdNumber = async () => {
   }
 };
 
+const personalIdNumberValidation = (personalIdNumber) => {
+  const validationResult = validatePersonalId(personalIdNumber);
+  if (validationResult) {
+    displayWrongPersonalIdNumberError(validationResult);
+    throw new Error("Invalid Personal Id Number");
+  }
+};
+
+const displayWrongPersonalIdNumberError = (validationMessage) => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongPersonalIdNumber");
+
+  div.innerHTML = `
+    <h1 class="error-title">${validationMessage}!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
+const validatePersonalId = (personalIdNumber) => {
+  if (isNaN(personalIdNumber)) {
+    return "Personal ID number must be numeric.";
+  }
+
+  if (personalIdNumber.length !== 11) {
+    return "Personal ID number must be exactly 11 digits.";
+  }
+
+  if (!isValidLithuanianPersonalIdChecksum(personalIdNumber)) {
+    return "Invalid Personal ID number.";
+  }
+
+  return null;
+};
+
+function isValidLithuanianPersonalIdChecksum(personalIdNumber) {
+  const weights1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2];
+  const weights2 = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4];
+
+  let sum = 0;
+
+  // First iteration weights
+  for (let i = 0; i < 10; i++) {
+    sum += parseInt(personalIdNumber[i]) * weights1[i];
+  }
+
+  let checksum = sum % 11;
+
+  if (checksum === 10) {
+    // Second iteration weights
+    sum = 0;
+    for (let i = 0; i < 10; i++) {
+      sum += parseInt(personalIdNumber[i]) * weights2[i];
+    }
+
+    checksum = sum % 11;
+
+    if (checksum === 10) {
+      checksum = 0;
+    }
+  }
+
+  return checksum === parseInt(personalIdNumber[10]);
+}
+
 const onUpdatePhoneNumber = async () => {
   const newPhoneNumber = document.querySelector("#update-phoneNumber").value;
 
   if (!newPhoneNumber) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("Phone number is required");
     return;
   }
 
-  // TODO: add validations
+  phoneNumberValidation(newPhoneNumber);
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -345,16 +532,42 @@ const onUpdatePhoneNumber = async () => {
   }
 };
 
+const phoneNumberValidation = (phoneNumber) => {
+  const phoneNumberRegex = /^\+?[1-9]\d{1,14}$/;
+  if (!phoneNumberRegex.test(phoneNumber)) {
+    displayWrongPhoneNumberError();
+    throw new Error("Invalid phone number");
+  }
+};
+
+const displayWrongPhoneNumberError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongPhoneNumber");
+
+  div.innerHTML = `
+    <h1 class="error-title">Invalid Phone Number!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
 const onUpdateEmail = async () => {
   const newEmail = document.querySelector("#update-email").value;
 
   if (!newEmail) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("Email is required");
     return;
   }
 
-  // TODO: add validations
+  emailValidation(newEmail);
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -388,15 +601,43 @@ const onUpdateEmail = async () => {
   }
 };
 
+const emailValidation = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    displayWrongEmailError();
+    throw new Error("Invalid email");
+  }
+};
+
+const displayWrongEmailError = () => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongEmail");
+
+  div.innerHTML = `
+    <h1 class="error-title">Invalid email!</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
 const onUpdatePhoto = async () => {
   const newPhotoInput = document.querySelector("#update-photo");
   const newPhoto = newPhotoInput.files[0];
 
   if (!newPhoto) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("Photo is not selected");
     return;
   }
+
+  photoValidation(newPhoto);
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -427,16 +668,61 @@ const onUpdatePhoto = async () => {
   }
 };
 
+const photoValidation = (photo) => {
+  const allowedExtensions = [".jpg", ".jpeg", ".png", ".bmp", ".gif"];
+  if (!isValidPhotoExtension(photo, allowedExtensions)) {
+    displayWrongPhotoExtensionError(allowedExtensions);
+    throw new Error(
+      `Photo extension not allowed. Allowed extensions: ${allowedExtensions.join(
+        ", "
+      )}`
+    );
+  }
+};
+
+const isValidPhotoExtension = (photo, allowedExtensions) => {
+  if (!photo) {
+    throw new Error("No photo selected.");
+  }
+
+  const extension = photo.name.split(".").pop().toLowerCase();
+  const fullExtension = `.${extension}`;
+
+  if (!allowedExtensions.includes(fullExtension)) {
+    return false;
+  }
+
+  return true;
+};
+
+const displayWrongPhotoExtensionError = (allowedExtensions) => {
+  removeExistingErrorContainer();
+  const div = document.createElement("div");
+  div.classList.add("error-container", "wrongEmail");
+
+  div.innerHTML = `
+    <h1 class="error-title">Photo extension not allowed. Allowed extensions: ${allowedExtensions.join(
+      ", "
+    )}</h1>
+    <button class="close-error-button">Close</button>
+  `;
+
+  document.body.append(div);
+
+  const closeButton = div.querySelector(".close-error-button");
+  closeButton.addEventListener("click", () => {
+    div.remove();
+  });
+};
+
 const onUpdateCity = async () => {
   const newCity = document.querySelector("#update-city").value;
 
   if (!newCity) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("City is required");
     return;
   }
-
-  // TODO: add validations
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -474,12 +760,10 @@ const onUpdateStreet = async () => {
   const newStreet = document.querySelector("#update-street").value;
 
   if (!newStreet) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("Street is required");
     return;
   }
-
-  // TODO: add validations
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -517,12 +801,10 @@ const onUpdateHouseNumber = async () => {
   const newHouseNumber = document.querySelector("#update-houseNumber").value;
 
   if (!newHouseNumber) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("House number is required");
     return;
   }
-
-  // TODO: add validations
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -560,12 +842,10 @@ const onUpdateRoomNumber = async () => {
   const newRoomNumber = document.querySelector("#update-roomNumber").value;
 
   if (!newRoomNumber) {
-    // TODO: display error
+    displayEmptyFieldError();
     console.error("Room number is required");
     return;
   }
-
-  // TODO: add validations
 
   const token = localStorage.getItem("JWT");
   if (!token) {
@@ -604,7 +884,6 @@ const getUserIdFromJwt = () => {
 
   const roleClaim =
     "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
-  console.log("Decoded token id: ", decodedToken[roleClaim]);
 
   return decodedToken[roleClaim];
 };
