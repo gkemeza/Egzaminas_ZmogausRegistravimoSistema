@@ -34,10 +34,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         }
 
         /// <summary>
-        /// Get user person info by user id
+        /// Get person info
         /// </summary>
         /// <param name="id">User id</param>
-        /// <returns></returns>
+        /// <returns>OkObjectResult with UserInfoResult</returns>
         [HttpGet("{id}")]
         [Authorize]
         public IActionResult GetUserPerson([FromRoute] Guid id)
@@ -75,8 +75,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         /// <summary>
         /// Create a user account
         /// </summary>
-        /// <param name="req">User request</param>
-        /// <response code= "500">System error</response>
+        /// <param name="req">SignUp request</param>
         [HttpPost("SignUp")]
         [Consumes("multipart/form-data")]
         [Produces(MediaTypeNames.Application.Json)]
@@ -101,9 +100,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         /// <summary>
         /// User login
         /// </summary>
-        /// <param name="req">User request</param>
-        /// <response code="400">Model validation error</response>
-        /// <response code= "500">System error</response>
+        /// <param name="req">Login request</param>
         [HttpPost("Login")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -136,7 +133,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         /// Remove a user. Only for admin.
         /// </summary>
         /// <param name="id">User id</param>
-        /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id:guid}")]
         [Consumes(MediaTypeNames.Application.Json)]

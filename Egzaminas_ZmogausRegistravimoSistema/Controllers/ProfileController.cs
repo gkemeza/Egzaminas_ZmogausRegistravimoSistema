@@ -31,6 +31,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             _userId = new Guid(_httpContextAccessor!.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         }
 
+        /// <summary>
+        /// Update user username
+        /// </summary>
+        /// <param name="req">Username Request dto</param>
         [HttpPut("UpdateUsername")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -54,6 +58,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update user password
+        /// </summary>
+        /// <param name="req">Password Request dto</param>
         [HttpPut("UpdatePassword")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -86,6 +94,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update user person name
+        /// </summary>
+        /// <param name="req">Name Request dto</param>
         [HttpPut("UpdateName")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -134,6 +146,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update user person personal id
+        /// </summary>
+        /// <param name="req">Personal Id Request dto</param>
         [HttpPut("UpdatePersonalIdNumber")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -157,6 +173,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update user person phone number
+        /// </summary>
+        /// <param name="req">Phone Number Request dto</param>
         [HttpPut("UpdatePhoneNumber")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -180,6 +200,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update user person email
+        /// </summary>
+        /// <param name="req">Email Request dto</param>
         [HttpPut("UpdateEmail")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -203,6 +227,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update user person photo
+        /// </summary>
+        /// <param name="req">Photo Request dto</param>
         [HttpPut("UpdatePhoto")]
         [Consumes("multipart/form-data")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -233,6 +261,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update residence city
+        /// </summary>
+        /// <param name="req">City Request dto</param>
         [HttpPut("UpdateCity")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -256,6 +288,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update residence street
+        /// </summary>
+        /// <param name="req">Street Request dto</param>
         [HttpPut("UpdateStreet")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -279,6 +315,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update residence house number
+        /// </summary>
+        /// <param name="req">House Number Request dto</param>
         [HttpPut("UpdateHouseNumber")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
@@ -302,6 +342,10 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update residence room number
+        /// </summary>
+        /// <param name="req">Room Number Request dto</param>
         [HttpPut("UpdateRoomNumber")]
         [Produces(MediaTypeNames.Application.Json)]
         [Consumes(MediaTypeNames.Application.Json)]
