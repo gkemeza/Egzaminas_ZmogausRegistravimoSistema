@@ -226,7 +226,7 @@ const displayWrongPersonalIdNumberError = (validationMessage) => {
   div.classList.add("error-container", "wrongPersonalIdNumber");
 
   div.innerHTML = `
-    <h1 class="error-title">${validationMessage}!</h1>
+    <h1 class="error-title">${validationMessage}</h1>
     <button class="close-error-button">Close</button>
   `;
 
@@ -240,15 +240,15 @@ const displayWrongPersonalIdNumberError = (validationMessage) => {
 
 const validatePersonalId = (personalIdNumber) => {
   if (isNaN(personalIdNumber)) {
-    return "Personal ID number must be numeric.";
+    return "Personal ID number must be numeric!";
   }
 
   if (personalIdNumber.length !== 11) {
-    return "Personal ID number must be exactly 11 digits.";
+    return "Personal ID number must be exactly 11 digits!";
   }
 
   if (!isValidLithuanianPersonalIdChecksum(personalIdNumber)) {
-    return "Invalid Personal ID number.";
+    return "Invalid Personal ID number!";
   }
 
   return null;

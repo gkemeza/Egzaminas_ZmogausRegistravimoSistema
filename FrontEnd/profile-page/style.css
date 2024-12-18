@@ -1,14 +1,12 @@
-/* General reset */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #fff3e2; /* Lightest background */
-  color: #333; /* Neutral text color */
+  background-color: #fff3e2;
+  color: #333;
   line-height: 1.6;
 }
 
-/* Center content */
 body,
 html {
   min-height: 100%;
@@ -18,85 +16,76 @@ html {
   padding: 20px;
 }
 
-/* Main Title */
 h1 {
   font-size: 2.5em;
-  color: #fa9884; /* Coral-like color */
+  color: #fa9884;
   margin-bottom: 30px;
 }
 
-/* Section Titles */
 h2 {
   font-size: 1.5em;
-  color: #fa9884; /* Coral-like color */
+  color: #fa9884;
   margin-top: 30px;
   margin-bottom: 10px;
   text-align: center;
 }
 
-/* Input fields */
 input[type="text"],
 input[type="password"],
 input[type="number"],
 input[type="tel"],
 input[type="email"],
 input[type="file"] {
-  width: 100%;
+  width: 90%;
   max-width: 400px;
   padding: 10px;
   margin: 5px 0;
   font-size: 1em;
-  border: 1px solid #fa9884; /* Coral-like border */
+  border: 1px solid #fa9884;
   border-radius: 5px;
-  background-color: #ffe5ca; /* Light beige background */
+  background-color: #ffe5ca;
 }
 
-/* Buttons */
 button {
   padding: 10px 20px;
   margin-top: 10px;
   font-size: 1em;
   color: #fff;
-  background-color: #e74646; /* Vibrant red */
+  background-color: #e74646;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-/* Button hover effect */
 button:hover {
-  background-color: #fa9884; /* Coral-like hover */
+  background-color: #fa9884;
 }
 
-/* Div for sections */
 #endpoints-container {
   width: 100%;
   max-width: 600px;
-  background-color: #ffe5ca; /* Light beige section background */
+  background-color: #ffe5ca;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
-/* Focus effect for inputs */
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="number"]:focus,
 input[type="tel"]:focus,
 input[type="email"]:focus {
   outline: none;
-  border-color: #e74646; /* Red focus outline */
+  border-color: #e74646;
   box-shadow: 0 0 5px rgba(231, 70, 70, 0.5);
 }
 
-/* Section spacing */
 br {
   margin: 10px 0;
 }
 
-/* Styling for the delete endpoint */
 #delete-endpoint {
   margin-top: 20px;
   padding: 10px;
@@ -134,18 +123,18 @@ br {
   background-color: #e60000;
 }
 
-/* Styling for the display-personInfo container */
 #display-personInfo {
-  display: none; /* Hide by default */
+  width: 100%;
+  display: none;
   margin-top: 20px;
-  padding: 15px;
+  padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #ffe5ca;
 }
 
 #display-personInfo.visible {
-  display: block; /* Show when the class is added */
+  display: block;
 }
 
 #display-personInfo p {
@@ -157,7 +146,7 @@ br {
 #display-personInfo img {
   width: 200px;
   height: 200px;
-  object-fit: cover; /* Ensures the image maintains its aspect ratio and fits within the 200x200 box */
+  object-fit: cover;
   border: 2px solid #ccc;
   border-radius: 10px;
   margin-top: 10px;
@@ -168,7 +157,6 @@ br {
   font-size: 1.2em;
 }
 
-/* General adjustments to ensure consistency */
 button {
   transition: all 0.3s ease-in-out;
 }
@@ -177,15 +165,14 @@ button:active {
   transform: scale(0.98);
 }
 
-/* Common error container styles */
 .error-container {
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #f8d7da; /* Light red for error */
-  color: #721c24; /* Dark red text */
-  border: 1px solid #f5c6cb; /* Border matching the background */
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
   border-radius: 8px;
   padding: 20px;
   max-width: 80%;
@@ -208,17 +195,17 @@ button:active {
 
 .close-error-button {
   background-color: transparent;
-  color: #721c24; /* Dark red text for close button */
+  color: #721c24;
   border: none;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-  align-self: flex-end; /* Position the button at the top right */
+  align-self: flex-end;
   padding: 5px 10px;
   margin-top: 10px;
   transition: color 0.3s ease;
 }
 
 .close-error-button:hover {
-  color: #f5c6cb; /* Light red for hover effect */
+  color: #f5c6cb;
 }
