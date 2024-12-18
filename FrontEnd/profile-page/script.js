@@ -104,6 +104,7 @@ const onDelete = async () => {
     }
 
     console.log("User deleted successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -216,6 +217,7 @@ const onUpdateUsername = async () => {
     }
 
     console.log("Username updated successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -292,6 +294,7 @@ const onUpdatePassword = async () => {
     }
 
     console.log("Password updated successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -393,6 +396,7 @@ const onUpdateName = async () => {
     }
 
     console.log("Name update request processed successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -438,6 +442,7 @@ const onUpdatePersonalIdNumber = async () => {
     }
 
     console.log("Personal id number updated successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -553,6 +558,7 @@ const onUpdatePhoneNumber = async () => {
     }
 
     console.log("Phone number updated successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -622,6 +628,7 @@ const onUpdateEmail = async () => {
     }
 
     console.log("Email updated successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -689,6 +696,7 @@ const onUpdatePhoto = async () => {
     }
 
     console.log("Photo updated successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -777,6 +785,7 @@ const onUpdateCity = async () => {
     }
 
     console.log("City updated successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -818,6 +827,7 @@ const onUpdateStreet = async () => {
     }
 
     console.log("Street updated successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -859,6 +869,7 @@ const onUpdateHouseNumber = async () => {
     }
 
     console.log("House number updated successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
@@ -900,6 +911,7 @@ const onUpdateRoomNumber = async () => {
     }
 
     console.log("Room number updated successfully.");
+    location.reload();
   } catch (error) {
     console.error("Detailed error:", error);
   }
