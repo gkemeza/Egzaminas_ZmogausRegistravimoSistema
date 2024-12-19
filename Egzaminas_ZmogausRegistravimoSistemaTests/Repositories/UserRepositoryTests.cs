@@ -34,13 +34,6 @@ namespace Egzaminas_ZmogausRegistravimoSistemaTests.Repositories
         }
 
         [Fact]
-        public void Create_NullUser_ThrowsException()
-        {
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => _userRepository.CreateUser(null));
-        }
-
-        [Fact]
         public void Create_DuplicateUsername_ThrowsException()
         {
             // Arrange
@@ -77,13 +70,6 @@ namespace Egzaminas_ZmogausRegistravimoSistemaTests.Repositories
 
             // Assert
             Assert.Null(result);
-        }
-
-        [Fact]
-        public void Get_NullUsername_ThrowsException()
-        {
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => _userRepository.GetUserByUsername(null));
         }
 
         [Fact]

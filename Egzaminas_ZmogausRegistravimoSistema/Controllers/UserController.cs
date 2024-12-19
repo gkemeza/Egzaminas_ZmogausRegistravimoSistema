@@ -85,6 +85,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult SignUp([FromForm] SignUpRequest req)
         {
             _logger.LogInformation($"Creating account for '{req.Username}'");
@@ -95,10 +96,28 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
                 return BadRequest("No file uploaded.");
             }
 
-            var userId = _userService.SignUp(req);
+            try
+            {
+                var userId = _userService.SignUp(req);
 
-            _logger.LogInformation($"Account for '{req.Username}' created with id '{userId}'");
-            return Created("", new { id = userId });
+                _logger.LogInformation($"Account for '{req.Username}' created with id '{userId}'");
+                return Created("", new { id = userId });
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogWarning($"Sign-up failed for '{req.Username}': {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+            catch (IOException ex)
+            {
+                _logger.LogError($"File handling error for '{req.Username}': {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while saving the photo.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"An unexpected error occurred while signing up '{req.Username}': {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            }
         }
 
         /// <summary>
