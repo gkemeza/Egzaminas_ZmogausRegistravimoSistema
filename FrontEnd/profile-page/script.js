@@ -26,6 +26,11 @@ const removeExistingErrorContainer = () => {
   }
 };
 
+const onLogout = () => {
+  localStorage.clear();
+  window.location.href = "../welcome-page/index.html";
+};
+
 const displayEmptyFieldError = () => {
   removeExistingErrorContainer();
   const div = document.createElement("div");
