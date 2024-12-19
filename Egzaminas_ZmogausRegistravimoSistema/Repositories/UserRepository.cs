@@ -18,10 +18,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
         {
             ArgumentNullException.ThrowIfNull(user);
 
-            var exists = _context.Users.Any(u => u.Username == user.Username);
-            if (exists)
-                throw new ArgumentException("Username already exists");
-
             _context.Users.Add(user);
             _context.PersonInfos.Add(user.PersonInfo);
             _context.Residences.Add(user.PersonInfo.Residence);

@@ -95,7 +95,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         }
 
         /// <summary>
-        /// Update user person name
+        /// Update person name
         /// </summary>
         /// <param name="req">Name Request dto</param>
         [HttpPut("UpdateName")]
@@ -147,7 +147,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         }
 
         /// <summary>
-        /// Update user person personal id
+        /// Update person personal id
         /// </summary>
         /// <param name="req">Personal Id Request dto</param>
         [HttpPut("UpdatePersonalIdNumber")]
@@ -174,7 +174,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         }
 
         /// <summary>
-        /// Update user person phone number
+        /// Update person phone number
         /// </summary>
         /// <param name="req">Phone Number Request dto</param>
         [HttpPut("UpdatePhoneNumber")]
@@ -201,7 +201,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         }
 
         /// <summary>
-        /// Update user person email
+        /// Update person email
         /// </summary>
         /// <param name="req">Email Request dto</param>
         [HttpPut("UpdateEmail")]
@@ -228,7 +228,7 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         }
 
         /// <summary>
-        /// Update user person photo
+        /// Update person photo
         /// </summary>
         /// <param name="req">Photo Request dto</param>
         [HttpPut("UpdatePhoto")]

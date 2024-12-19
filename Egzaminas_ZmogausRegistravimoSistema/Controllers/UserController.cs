@@ -1,4 +1,5 @@
 ﻿using Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests;
+using Egzaminas_ZmogausRegistravimoSistema.Dtos.Results;
 using Egzaminas_ZmogausRegistravimoSistema.Mappers.Interfaces;
 using Egzaminas_ZmogausRegistravimoSistema.Repositories.Interfaces;
 using Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces;
@@ -37,9 +38,12 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
         /// Get person info
         /// </summary>
         /// <param name="id">User id</param>
-        /// <returns>OkObjectResult with UserInfoResult</returns>
+        /// <returns>OkObjectResult with PersonInfoResult value</returns>
         [HttpGet("{id}")]
         [Authorize]
+        [ProducesResponseType(typeof(PersonInfoResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetUserPerson([FromRoute] Guid id)
         {
             _logger.LogInformation($"Getting user with ID: '{id}'");

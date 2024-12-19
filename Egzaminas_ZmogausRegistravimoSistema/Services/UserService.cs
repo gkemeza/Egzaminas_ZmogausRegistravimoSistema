@@ -23,6 +23,12 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Services
         {
             var user = _userMapper.Map(req);
 
+            var exists = _userRepository.UserExists(user.Id);
+            if (exists)
+            {
+                throw new ArgumentException("Username already exists");
+            }
+
             string photoPath = _photoService.GetPhotoPath(req.PersonInfo.Photo, "Uploads/Profile-pictures");
             user.PersonInfo.PhotoPath = photoPath;
 

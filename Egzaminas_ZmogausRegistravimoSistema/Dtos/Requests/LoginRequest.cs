@@ -1,5 +1,4 @@
-﻿using Egzaminas_ZmogausRegistravimoSistema.Entities;
-using Egzaminas_ZmogausRegistravimoSistema.Validators;
+﻿using Egzaminas_ZmogausRegistravimoSistema.Validators;
 using System.ComponentModel.DataAnnotations;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
@@ -7,14 +6,14 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Dtos.Requests
     public class LoginRequest
     {
         /// <summary>
-        /// Username of the account
+        /// Username of the user
         /// </summary>
         [Required]
         [StringLength(50, MinimumLength = 3)]
         public string? Username { get; set; }
 
         /// <summary>
-        /// Password of the account
+        /// Password of the user
         /// </summary>
         [PasswordValidator]
         public string? Password { get; set; }
