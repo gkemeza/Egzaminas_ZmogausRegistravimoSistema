@@ -23,7 +23,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema
             // Add services to the container.
             builder.Services.AddCors();
 
-            // TODO: add ConfigureServices() method
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IAuthService, AuthService>();
             builder.Services.AddTransient<IUserService, UserService>();
@@ -102,7 +101,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema
             app.UseCors(builder =>
             {
                 builder
-                //.WithOrigins("https://localhost:7066")
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader();
