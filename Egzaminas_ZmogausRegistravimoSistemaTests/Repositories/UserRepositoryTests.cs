@@ -3,9 +3,6 @@ using Egzaminas_ZmogausRegistravimoSistema.Entities;
 using Egzaminas_ZmogausRegistravimoSistema.Repositories;
 using Egzaminas_ZmogausRegistravimoSistema.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
-using Xunit;
 
 namespace Egzaminas_ZmogausRegistravimoSistemaTests.Repositories
 {
@@ -54,7 +51,7 @@ namespace Egzaminas_ZmogausRegistravimoSistemaTests.Repositories
             _userRepository.CreateUser(user1);
 
             // Assert
-            Assert.Throws<ArgumentException>(() => _userRepository.CreateUser(user2));
+            Assert.Throws<InvalidOperationException>(() => _userRepository.CreateUser(user2));
         }
 
         [Fact]
