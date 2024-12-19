@@ -1,4 +1,5 @@
-﻿using System.Drawing.Imaging;
+﻿using Egzaminas_ZmogausRegistravimoSistema.Entities;
+using System.Drawing.Imaging;
 
 namespace Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces
 {
@@ -8,5 +9,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces
         byte[] GetPhotoAsByteArray(string filePath);
         string GetPhotoPath(IFormFile photo, string folder);
         byte[] ResizeImage(IFormFile file, int width, int height, ImageFormat imageFormat);
+        void UpdateUserPhoto(User user, IFormFile newPhoto, string uploadDirectory);
     }
 }

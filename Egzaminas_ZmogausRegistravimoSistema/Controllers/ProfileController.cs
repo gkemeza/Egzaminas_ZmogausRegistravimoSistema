@@ -253,12 +253,19 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Controllers
                 return NotFound("User not found");
             }
 
-            var newPhotoPath = _photoService.GetPhotoPath(req.NewPhoto, "Uploads/Profile-pictures");
-            user.PersonInfo.PhotoPath = newPhotoPath;
-            _userRepository.UpdateUser(user);
+            try
+            {
+                _photoService.UpdateUserPhoto(user, req.NewPhoto, "Uploads/Profile-pictures");
+                _userRepository.UpdateUser(user);
 
-            _logger.LogInformation($"Successfully updated photo for user ID: {_userId}");
-            return NoContent();
+                _logger.LogInformation($"Successfully updated photo for user ID: {_userId}");
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error updating photo for user ID: {_userId}. Exception: {ex.Message}");
+                return StatusCode(500, "An error occurred while updating the photo.");
+            }
         }
 
         /// <summary>

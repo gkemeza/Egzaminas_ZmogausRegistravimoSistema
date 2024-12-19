@@ -1,4 +1,5 @@
-﻿using Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces;
+﻿using Egzaminas_ZmogausRegistravimoSistema.Entities;
+using Egzaminas_ZmogausRegistravimoSistema.Services.Interfaces;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -6,6 +7,26 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Services
 {
     public class PhotoService : IPhotoService
     {
+        public void UpdateUserPhoto(User user, IFormFile newPhoto, string uploadDirectory)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+
+            if (newPhoto == null || newPhoto.Length == 0)
+                throw new ArgumentException("Photo cannot be null or empty", nameof(newPhoto));
+
+            var oldPhotoPath = user.PersonInfo.PhotoPath;
+
+            var newPhotoPath = GetPhotoPath(newPhoto, uploadDirectory);
+
+            if (!string.IsNullOrEmpty(oldPhotoPath) && File.Exists(oldPhotoPath))
+            {
+                File.Delete(oldPhotoPath);
+            }
+
+            user.PersonInfo.PhotoPath = newPhotoPath;
+        }
+
         public string GetPhotoPath(IFormFile photo, string folder)
         {
             if (photo == null || photo.Length == 0)
