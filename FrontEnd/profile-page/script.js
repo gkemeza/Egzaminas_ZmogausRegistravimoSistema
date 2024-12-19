@@ -185,7 +185,7 @@ const displayJsonData = (jsonData) => {
 };
 
 const onUpdateUsername = async () => {
-  const newUsername = document.querySelector("#update-username").value;
+  const newUsername = document.querySelector("#update-username").value.trim();
 
   if (!newUsername) {
     displayEmptyFieldError();
@@ -363,8 +363,8 @@ const displayUnauthorizedError = () => {
 };
 
 const onUpdateName = async () => {
-  const firstName = document.querySelector("#update-firstName").value;
-  const lastName = document.querySelector("#update-lastName").value;
+  const firstName = document.querySelector("#update-firstName").value.trim();
+  const lastName = document.querySelector("#update-lastName").value.trim();
 
   if (!firstName && !lastName) {
     displayEmptyFieldError();
@@ -755,7 +755,7 @@ const displayWrongPhotoExtensionError = (allowedExtensions) => {
 };
 
 const onUpdateCity = async () => {
-  const newCity = document.querySelector("#update-city").value;
+  const newCity = document.querySelector("#update-city").value.trim();
 
   if (!newCity) {
     displayEmptyFieldError();
@@ -797,7 +797,7 @@ const onUpdateCity = async () => {
 };
 
 const onUpdateStreet = async () => {
-  const newStreet = document.querySelector("#update-street").value;
+  const newStreet = document.querySelector("#update-street").value.trim();
 
   if (!newStreet) {
     displayEmptyFieldError();
@@ -839,7 +839,9 @@ const onUpdateStreet = async () => {
 };
 
 const onUpdateHouseNumber = async () => {
-  const newHouseNumber = document.querySelector("#update-houseNumber").value;
+  const newHouseNumber = document
+    .querySelector("#update-houseNumber")
+    .value.trim();
 
   if (!newHouseNumber) {
     displayEmptyFieldError();
@@ -881,7 +883,9 @@ const onUpdateHouseNumber = async () => {
 };
 
 const onUpdateRoomNumber = async () => {
-  const newRoomNumber = document.querySelector("#update-roomNumber").value;
+  const newRoomNumber = document
+    .querySelector("#update-roomNumber")
+    .value.trim();
 
   if (!newRoomNumber) {
     displayEmptyFieldError();
