@@ -16,8 +16,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
 
         public Guid CreateUser(User user)
         {
-            ArgumentNullException.ThrowIfNull(user);
-
             _context.Users.Add(user);
             _context.PersonInfos.Add(user.PersonInfo);
             _context.Residences.Add(user.PersonInfo.Residence);
@@ -27,8 +25,6 @@ namespace Egzaminas_ZmogausRegistravimoSistema.Repositories
 
         public User? GetUserByUsername(string username)
         {
-            ArgumentNullException.ThrowIfNull(username);
-
             return _context.Users
                 .Include(u => u.PersonInfo)
                 .ThenInclude(pf => pf.Residence)
