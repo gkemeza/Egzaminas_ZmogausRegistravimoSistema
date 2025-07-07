@@ -1,14 +1,17 @@
 # Human registration system 👨‍💻
 
-A RESTful API for human registration and management system. 
-This API provides backend services for registering, managing, and tracking human records with comprehensive CRUD operations and data validation.
+- An ASP.NET Core Web API for human registration and management system. 
+- This API provides backend services for registering, managing, and tracking human records with CRUD operations and data validation.
 
 **Features:**
-- User Registration - Allows users to input personal details such as name, surname, and identification number.
-- Data Validation - Ensures that all required fields are filled correctly before submission.
-- User List Display - Registered users are displayed in a structured list format for easy viewing.
-- Edit & Delete Functionality - Users can be updated or removed from the system with intuitive controls.
-- Responsive Design - The interface adapts to different screen sizes for better usability
+- Models, controllers, and routes
+- CRUD operations
+- Integrated with a database using Entity Framework Core
+- Authentication and authorization
+- Error handling and validation
+- Unit testing with xUnit
+- OpenAPI documentation
+- Responsive frontend design
 
 **Technologies Used:**  
 - C# / ASP.NET – Backend logic and form handling
